@@ -3,22 +3,20 @@
 [docker_build_shield]: https://img.shields.io/docker/build/06kellyjac/markdownlint-cli.svg?style=flat-square
 [docker_hub]: https://hub.docker.com/r/06kellyjac/markdownlint-cli/
 
-[![Docker Stars][docker_stars_shield]][docker_hub]
-[![Docker Pulls][docker_pulls_shield]][docker_hub]
-[![Docker Build Status][docker_build_shield]][docker_hub]
+[![Docker Stars][docker_stars_shield]][docker_hub] [![Docker Pulls][docker_pulls_shield]][docker_hub] [![Docker Build Status][docker_build_shield]][docker_hub]
 
 # Supported tags and respective `Dockerfile` links
 
 [latest_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/debian-buster-slim/Dockerfile
 
 - [`latest`: (*Dockerfile*)][latest_dockerfile]
-  - **XKB Compressed**
+  - **26MB Compressed**
 
 The Docker file also visible on the Docker Hub page: <https://hub.docker.com/r/06kellyjac/markdownlint-cli/~/dockerfile/>
 
 # How to use this image
 
-<!-- TODO -->
+TODO
 
 # Quick reference
 
