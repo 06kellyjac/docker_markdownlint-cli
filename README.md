@@ -6,6 +6,11 @@
 
 [![Docker Stars][docker_stars_shield]][docker_hub] [![Docker Pulls][docker_pulls_shield]][docker_hub] [![Docker Build Status][docker_build_shield]][docker_hub]
 
+[pipeline_badge]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/badges/master/pipeline.svg
+[pipeline_link]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/pipelines
+
+[![Pipeline][pipeline_badge]][pipeline_link]
+
 # Supported tags and respective `Dockerfile` links
 
 [latest_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/debian-buster-slim/Dockerfile
