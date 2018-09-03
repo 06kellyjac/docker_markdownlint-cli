@@ -1,0 +1,37 @@
+---
+stages:
+  - lint
+
+lint:yaml:
+  stage: lint
+  image: sdesbure/yamllint
+  before_script:
+    - yamllint --version
+  script:
+    - LIST_OF_YAML=$(find -path './.git' -prune -o -print | egrep "\.ya?ml$")
+    - yamllint --strict --config-file .yamllint.yaml $LIST_OF_YAML
+
+lint:markdown:
+  stage: lint
+  image:
+    name: 06kellyjac/markdownlint-cli
+    entrypoint:
+      - "/usr/bin/env"
+      - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+  before_script:
+    - markdownlint --version
+  script:
+    - LIST_OF_MARKDOWN=$(find -path './.git' -prune -o -print | egrep "\.md$" | tr '\n' ' ')
+    - markdownlint $LIST_OF_MARKDOWN
+
+lint:docker:
+  stage: lint
+  image:
+    name: hadolint/hadolint:latest-debian
+    entrypoint:
+      - "/usr/bin/env"
+      - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+  before_script:
+    - hadolint --version
+  script:
+    - hadolint Dockerfile
