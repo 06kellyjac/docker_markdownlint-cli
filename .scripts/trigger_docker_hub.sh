@@ -29,11 +29,15 @@ if [ "$GIT_VERSION" != "$NPM_VERSION" ]; then
 	mkdir -p ~/.ssh && chmod 700 ~/.ssh
 	ssh-keyscan gitlab.com >> ~/.ssh/known_hosts && chmod 644 ~/.ssh/known_hosts
 	apk add --update git
+	git config --global user.name "06kellyjac - CI"
+	git config --global user.email "06kellyjac@googlemail.com"
 	echo "$NPM_VERSION" > $VERSION_FILE
-	git status
-	echo "Committing the change"
+	# echo "Committing the change"
+	echo "Potential commit message:"
+	echo "$CI_RUNNER_ID - Changed version from $GIT_VERSION -> $NPM_VERSION"
+	echo "END"
 	# git commit -am "$CI"
-	echo "Pushing the change"
+	# echo "Pushing the change"
 	# git push
 else
 	echo "Already @ the latest version"

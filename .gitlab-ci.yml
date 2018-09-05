@@ -5,6 +5,9 @@ stages:
 poll:markdownlint-cli:
   stage: poll
   image: node:alpine
+  before_script:
+    - node --version
+    - npm --version
   script:
     - .scripts/trigger_docker_hub.sh
   # only:
