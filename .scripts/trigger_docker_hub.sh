@@ -37,7 +37,7 @@ if [ "$GIT_VERSION" != "$NPM_VERSION" ]; then
 	git commit -am "[CI] Changed \`$VERSION_FILE\`: $GIT_VERSION -> $NPM_VERSION"
 	echo ""
 	echo "Pushing the change"
-	git push
+	git push origin HEAD:"$CI_COMMIT_REF_NAME"
 else
 	echo "Already @ the latest version"
 fi
