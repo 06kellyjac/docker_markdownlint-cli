@@ -8,7 +8,7 @@ lint:yaml:
   before_script:
     - yamllint --version
   script:
-    - LIST_OF_YAML=$(find -path './.git' -prune -o -print | egrep "\.ya?ml$")
+    - LIST_OF_YAML=$(find -path '.git' -prune -o -print | egrep "\.ya?ml$")
     - yamllint --strict --config-file .yamllint.yaml $LIST_OF_YAML
 
 lint:markdown:
@@ -21,7 +21,7 @@ lint:markdown:
   before_script:
     - markdownlint --version
   script:
-    - LIST_OF_MARKDOWN=$(find -path './.git' -prune -o -print | egrep "\.md$" | tr '\n' ' ')
+    - LIST_OF_MARKDOWN=$(find -path '.git' -prune -o -print | egrep "\.md$" | tr '\n' ' ')
     - markdownlint $LIST_OF_MARKDOWN
 
 lint:docker:
@@ -34,4 +34,5 @@ lint:docker:
   before_script:
     - hadolint --version
   script:
-    - hadolint Dockerfile
+    - LIST_OF_DOCKERFILES=$(find -path '.git' -prune -o -print | egrep ".*Dockerfile")
+    - hadolint $LIST_OF_DOCKERFILES
