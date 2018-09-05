@@ -4,8 +4,9 @@
 [docker_pulls_shield]: https://img.shields.io/docker/pulls/06kellyjac/markdownlint-cli.svg?style=flat-square
 [docker_build_shield]: https://img.shields.io/docker/build/06kellyjac/markdownlint-cli.svg?style=flat-square
 [docker_hub]: https://hub.docker.com/r/06kellyjac/markdownlint-cli/
+[docker_hub_build]: https://hub.docker.com/r/06kellyjac/markdownlint-cli/builds/
 
-[![Docker Stars][docker_stars_shield]][docker_hub] [![Docker Pulls][docker_pulls_shield]][docker_hub] [![Docker Build Status][docker_build_shield]][docker_hub]
+[![Docker Stars][docker_stars_shield]][docker_hub] [![Docker Pulls][docker_pulls_shield]][docker_hub] [![Docker Build Status][docker_build_shield]][docker_hub_build]
 
 [pipeline_badge]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/badges/master/pipeline.svg
 [pipeline_link]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/pipelines
