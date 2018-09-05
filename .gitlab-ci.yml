@@ -1,0 +1,11 @@
+---
+stages:
+  - poll
+
+poll:markdownlint-cli:
+  stage: poll
+  image: node:alpine
+  script:
+    - .scripts/trigger_docker_hub.sh
+  # only:
+  #   - schedules
