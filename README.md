@@ -1,4 +1,4 @@
-[](<!-- markdownlint-disable MD013 -->)
+[//]: # (<!-- markdownlint-disable MD013 -->)
 
 [docker_stars_shield]: https://img.shields.io/docker/stars/06kellyjac/markdownlint-cli.svg?style=flat-square
 [docker_pulls_shield]: https://img.shields.io/docker/pulls/06kellyjac/markdownlint-cli.svg?style=flat-square
@@ -11,6 +11,10 @@
 [pipeline_link]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/pipelines
 
 [![Pipeline][pipeline_badge]][pipeline_link]
+
+The CI is scheduled to check at 12:00 UTC daily for a new version of `markdownlint-cli` on `npm` and trigger a new build to ensure the Docker image is always up to date.
+
+<https://gitlab.com/06kellyjac/docker_markdownlint-cli/pipeline_schedules>
 
 # Supported tags and respective `Dockerfile` links
 
