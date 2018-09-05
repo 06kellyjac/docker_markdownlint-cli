@@ -31,14 +31,13 @@ if [ "$GIT_VERSION" != "$NPM_VERSION" ]; then
 	apk add --update git
 	git config --global user.name "06kellyjac - CI"
 	git config --global user.email "06kellyjac@googlemail.com"
+	# Update the version file
 	echo "$NPM_VERSION" > $VERSION_FILE
-	# echo "Committing the change"
-	echo "Potential commit message:"
-	echo "$CI_RUNNER_ID - Changed version from $GIT_VERSION -> $NPM_VERSION"
-	echo "END"
-	# git commit -am "$CI"
-	# echo "Pushing the change"
-	# git push
+	echo "Committing the change"
+	git commit -am "[CI] Changed \`$VERSION_FILE\`: $GIT_VERSION -> $NPM_VERSION"
+	echo ""
+	echo "Pushing the change"
+	git push
 else
 	echo "Already @ the latest version"
 fi
