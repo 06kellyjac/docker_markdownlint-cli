@@ -33,7 +33,7 @@ if [ "$GIT_VERSION" != "$NPM_VERSION" ]; then
 	git config --global user.name "06kellyjac - CI"
 	git config --global user.email "06kellyjac@googlemail.com"
 	# Make sure the origin is using git rather than https
-	git add remote ssh_remote git@gitlab.com:06kellyjac/docker_markdownlint-cli.git
+	git remote set-url origin git@gitlab.com:06kellyjac/docker_markdownlint-cli.git
 	# Update the version file
 	echo "$NPM_VERSION" > $VERSION_FILE
 	echo "Committing the change"
