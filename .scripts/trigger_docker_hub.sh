@@ -15,13 +15,16 @@ echo ""
 
 if [ "$GIT_VERSION" != "$NPM_VERSION" ]; then
 	echo "Not @ the latest version"
+	echo ""
 	echo "Triggering a build on Docker Hub"
-	# RESULT=$(wget \
-	# 	-qO- \
-	# 	--header "Content-Type: application/json" \
-	# 	--post-data '{"source_type": "Branch", "source_name": "master"}' \
-	# 	$POST_URL)
-	# [ "$RESULT" = "OK" ] && echo "Trigger sent successfully" || ( echo "ERROR: Trigger not sent successfully" && echo "$RESULT" )
+	echo ""
+	RESULT=$(wget \
+		-qO- \
+		--header "Content-Type: application/json" \
+		--post-data '{"source_type": "Branch", "source_name": "master"}' \
+		$POST_URL)
+	[ "$RESULT" = "OK" ] && echo "Trigger sent successfully" || ( echo "ERROR: Trigger not sent successfully" && echo "$RESULT" )
+	echo ""
 	echo "Preparing git"
 	apk add --update openssh-client
 	eval $(ssh-agent -s)
