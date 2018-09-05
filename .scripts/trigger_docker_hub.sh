@@ -26,19 +26,21 @@ if [ "$GIT_VERSION" != "$NPM_VERSION" ]; then
 	apk add --update openssh-client
 	eval $(ssh-agent -s)
 	echo "$SSH_KEY" | tr -d '\r' | ssh-add - > /dev/null
-	ssh-add -l
-	# mkdir -p ~/.ssh && chmod 700 ~/.ssh
-	# ssh-keyscan gitlab.com >> ~/.ssh/known_hosts && chmod 644 ~/.ssh/known_hosts
-	# apk add --update git
-	# git config --global user.name "06kellyjac - CI"
-	# git config --global user.email "06kellyjac@googlemail.com"
-	# # Update the version file
-	# echo "$NPM_VERSION" > $VERSION_FILE
-	# echo "Committing the change"
-	# git commit -am "[CI] Changed \`$VERSION_FILE\`: $GIT_VERSION -> $NPM_VERSION"
-	# echo ""
-	# echo "Pushing the change"
-	# git push origin HEAD:"$CI_COMMIT_REF_NAME"
+	mkdir -p ~/.ssh && chmod 700 ~/.ssh
+	ssh-keyscan gitlab.com >> ~/.ssh/known_hosts && chmod 644 ~/.ssh/known_hosts
+	apk add --update git
+	# Setup git config
+	git config --global user.name "06kellyjac - CI"
+	git config --global user.email "06kellyjac@googlemail.com"
+	# Make sure the origin is using git rather than https
+	git add remote ssh_remote git@gitlab.com:06kellyjac/docker_markdownlint-cli.git
+	# Update the version file
+	echo "$NPM_VERSION" > $VERSION_FILE
+	echo "Committing the change"
+	git commit -am "[CI] Changed \`$VERSION_FILE\`: $GIT_VERSION -> $NPM_VERSION"
+	echo ""
+	echo "Pushing the change"
+	git push origin HEAD:"$CI_COMMIT_REF_NAME"
 else
 	echo "Already @ the latest version"
 fi

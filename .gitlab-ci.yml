@@ -10,6 +10,6 @@ poll:markdownlint-cli:
     - npm --version
   script:
     - .scripts/trigger_docker_hub.sh
-  # only:
-  #   - schedules
-  #   - web
+  only:
+    - schedules
+    - web
