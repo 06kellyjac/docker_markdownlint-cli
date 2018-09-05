@@ -3,7 +3,7 @@ set -e
 # DOCKER_HUB_TRIGGER_TOKEN must be defined
 [ ! -z $DOCKER_HUB_TRIGGER_TOKEN ]
 
-VERSION_FILE="./VERSION"
+VERSION_FILE="VERSION"
 POST_URL="https://registry.hub.docker.com/u/06kellyjac/markdownlint-cli/trigger/${DOCKER_HUB_TRIGGER_TOKEN}/"
 
 GIT_VERSION=$(cat "$VERSION_FILE")
@@ -19,7 +19,7 @@ if [ "$GIT_VERSION" != "$NPM_VERSION" ]; then
 	# RESULT=$(wget \
 	# 	-qO- \
 	# 	--header "Content-Type: application/json" \
-	# 	--post-data '{"build": true}' \
+	# 	--post-data '{"source_type": "Branch", "source_name": "master"}' \
 	# 	$POST_URL)
 	# [ "$RESULT" = "OK" ] && echo "Trigger sent successfully" || ( echo "ERROR: Trigger not sent successfully" && echo "$RESULT" )
 	echo "Preparing git"
@@ -29,6 +29,7 @@ if [ "$GIT_VERSION" != "$NPM_VERSION" ]; then
 	mkdir -p ~/.ssh && chmod 700 ~/.ssh
 	ssh-keyscan gitlab.com >> ~/.ssh/known_hosts && chmod 644 ~/.ssh/known_hosts
 	apk add --update git
+	echo "$NPM_VERSION" > $VERSION_FILE
 	git status
 	echo "Committing the change"
 	# git commit -am "$CI"
