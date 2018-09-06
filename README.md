@@ -13,7 +13,7 @@
 
 [![Pipeline][pipeline_badge]][pipeline_link]
 
-The CI is scheduled to check every 15 minutes for a new version of `markdownlint-cli` on `npm` and trigger a new build to ensure the `latest` Docker image is always up to date.
+The CI is scheduled to check every hour for a new version of `markdownlint-cli` on `npm` and trigger a new build to ensure the `latest` Docker image is always up to date.
 
 <https://gitlab.com/06kellyjac/docker_markdownlint-cli/pipeline_schedules>
 
