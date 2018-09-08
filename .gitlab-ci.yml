@@ -40,9 +40,11 @@ lint:docker:
 
 build:docker:latest:
   stage: build
+  only:
+    - master
   image: docker:git
   services:
-  - docker:dind
+    - docker:dind
   before_script:
     - docker --version
   script:
@@ -50,14 +52,14 @@ build:docker:latest:
     - IMAGE_TAG="$CI_REGISTRY_IMAGE"
     - docker build -t $IMAGE_TAG alpine/latest
     - docker push $IMAGE_TAG
-  only:
-    - master
 
 build:docker:latest-slim:
   stage: build
+  only:
+    - master
   image: docker:git
   services:
-  - docker:dind
+    - docker:dind
   before_script:
     - docker --version
   script:
@@ -65,5 +67,3 @@ build:docker:latest-slim:
     - IMAGE_TAG="$CI_REGISTRY_IMAGE:latest-slim"
     - docker build -t $IMAGE_TAG slim/latest
     - docker push $IMAGE_TAG
-  only:
-    - master
