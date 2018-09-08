@@ -1,6 +1,7 @@
 ---
 stages:
   - lint
+  - build
 
 lint:yaml:
   stage: lint
@@ -36,3 +37,33 @@ lint:docker:
   script:
     - LIST_OF_DOCKERFILES=$(find -path '.git' -prune -o -print | egrep ".*Dockerfile")
     - hadolint $LIST_OF_DOCKERFILES
+
+build:docker:latest:
+  stage: build
+  image: docker:git
+  services:
+  - docker:dind
+  before_script:
+    - docker --version
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - IMAGE_TAG="$CI_REGISTRY_IMAGE"
+    - docker build -t $IMAGE_TAG alpine/latest
+    - docker push $IMAGE_TAG
+  only:
+    - master
+
+build:docker:latest-slim:
+  stage: build
+  image: docker:git
+  services:
+  - docker:dind
+  before_script:
+    - docker --version
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - IMAGE_TAG="$CI_REGISTRY_IMAGE:latest-slim"
+    - docker build -t $IMAGE_TAG slim/latest
+    - docker push $IMAGE_TAG
+  only:
+    - master
