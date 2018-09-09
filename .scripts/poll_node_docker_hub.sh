@@ -15,12 +15,14 @@ echo
 
 if [ "$GIT_LAST_UPDATED" != "$DOCKER_HUB_LAST_UPDATED" ]; then
 	echo "Not @ the latest version"
+	echo "Committing updates"
+	echo
+	.scripts/commit_to_gitlab.sh "$UPDATE_FILE" "$GIT_LAST_UPDATED" "$DOCKER_HUB_LAST_UPDATED"
 	echo
 	echo "Triggering a build on GitLab"
 	echo
 	.scripts/trigger_gitlab_ci.sh
 	echo
-	.scripts/commit_to_gitlab.sh "$UPDATE_FILE" "$GIT_LAST_UPDATED" "$DOCKER_HUB_LAST_UPDATED"
 else
 	echo "Already @ the latest Node Image version"
 fi
