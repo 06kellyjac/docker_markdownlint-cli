@@ -1,15 +1,17 @@
 #!/bin/sh
-set -eux
+set -euo pipefail
 
 DEFAULT_BASE="alpine"
 
 # Login
-echo docker login -u ${CI_REGISTRY_USER} -p ${CI_REGISTRY_PASSWORD} ${CI_REGISTRY}
+docker login -u ${CI_REGISTRY_USER} -p ${CI_REGISTRY_PASSWORD} ${CI_REGISTRY}
+
+set -x
 
 # Get the end of the job name:
 # e.g.: build:docker:latest  OR  build:docker:0.13.0-slim
 #                    ^^^^^^                   ^^^^^^^^^^^
-CI_JOB_NAME_END=$(cut -d':' -f3 <<< "${CI_JOB_NAME}")
+CI_JOB_NAME_END=$(echo "${CI_JOB_NAME}" | cut -d':' -f3)
 
 function generate_image_tag () {
 	set +u
@@ -23,11 +25,11 @@ if [[ "$CI_JOB_NAME_END" != *"-"* ]]; then
 	IMAGE_NAME=("${IMAGE_NAME[@]}", "$TAG")
 	TARGET_DIRECTORY="${DEFAULT_BASE}/${CI_JOB_NAME_END}"
 else
-	TARGET_DIRECTORY=$(awk -F'-' '{print $2"/"$1}' <<< "$CI_JOB_NAME_END")
+	TARGET_DIRECTORY=$(echo "$CI_JOB_NAME_END" | awk -F'-' '{print $2"/"$1}')
 fi
 
-DOCKER_BUILD_LIST=$(sed 's/, / -t /g' <<< "-t ${IMAGE_NAME[@]}")
+DOCKER_BUILD_LIST=$(echo "-t ${IMAGE_NAME[@]}" | sed 's/, / -t /g')
 docker build $DOCKER_BUILD_LIST $TARGET_DIRECTORY
 
-DOCKER_PUSH_LIST=$(sed 's/, / \&\& docker push /g' <<< "${IMAGE_NAME[@]}")
+DOCKER_PUSH_LIST=$(echo "${IMAGE_NAME[@]}" | sed 's/, / \&\& docker push /g')
 docker push $DOCKER_PUSH_LIST
