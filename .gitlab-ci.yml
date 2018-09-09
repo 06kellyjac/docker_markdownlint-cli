@@ -42,28 +42,34 @@ build:docker:latest:
   stage: build
   only:
     - master
-  image: docker:git
+  image: docker
   services:
     - docker:dind
   before_script:
     - docker --version
   script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - IMAGE_TAG="$CI_REGISTRY_IMAGE"
-    - docker build -t $IMAGE_TAG alpine/latest
-    - docker push $IMAGE_TAG
+    - .scripts/ci_build.sh
 
 build:docker:latest-slim:
   stage: build
   only:
     - master
-  image: docker:git
+  image: docker
   services:
     - docker:dind
   before_script:
     - docker --version
   script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - IMAGE_TAG="$CI_REGISTRY_IMAGE:latest-slim"
-    - docker build -t $IMAGE_TAG slim/latest
-    - docker push $IMAGE_TAG
+    - ./scripts/ci_build.sh
+
+build:docker:0.13.0:
+  stage: build
+  only:
+    - master
+  image: docker
+  services:
+    - docker:dind
+  before_script:
+    - docker --version
+  script:
+    - ./scripts/ci_build.sh
