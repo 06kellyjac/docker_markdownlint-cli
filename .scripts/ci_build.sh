@@ -19,7 +19,7 @@ function generate_image_tag () {
 
 IMAGE_NAME="$(generate_image_tag)"
 
-if [[ "${CI_JOB_NAME_END#*'-'}" = "$CI_JOB_NAME_END" ]]; then
+if [[ $(echo "$CI_JOB_NAME_END" | grep "-") ]]; then
 	TAG=$(generate_image_tag "-${DEFAULT_BASE}")
 	IMAGE_NAME="$IMAGE_NAME $TAG"
 	TARGET_DIRECTORY="${DEFAULT_BASE}/${CI_JOB_NAME_END}"
