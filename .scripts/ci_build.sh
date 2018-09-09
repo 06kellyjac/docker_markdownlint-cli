@@ -18,18 +18,19 @@ function generate_image_tag () {
 	echo "${CI_REGISTRY_IMAGE}:${CI_JOB_NAME_END}${1}"
 }
 
-IMAGE_NAME=("$(generate_image_tag)")
+IMAGE_NAME="$(generate_image_tag)"
 
 if [[ "$CI_JOB_NAME_END" != *"-"* ]]; then
 	TAG=$(generate_image_tag "-${DEFAULT_BASE}")
-	IMAGE_NAME=("${IMAGE_NAME[@]}", "$TAG")
+	IMAGE_NAME="$IMAGE_NAME $TAG"
 	TARGET_DIRECTORY="${DEFAULT_BASE}/${CI_JOB_NAME_END}"
 else
 	TARGET_DIRECTORY=$(echo "$CI_JOB_NAME_END" | awk -F'-' '{print $2"/"$1}')
 fi
 
-DOCKER_BUILD_LIST=$(echo "-t ${IMAGE_NAME[@]}" | sed 's/, / -t /g')
-docker build $DOCKER_BUILD_LIST $TARGET_DIRECTORY
+DOCKER_BUILD_LIST=$(for IMAGE in $IMAGE_NAME; do printf -- "-t $IMAGE "; done)
+docker build "$DOCKER_BUILD_LIST"
 
-DOCKER_PUSH_LIST=$(echo "${IMAGE_NAME[@]}" | sed 's/, / \&\& docker push /g')
-docker push $DOCKER_PUSH_LIST
+for IMAGE in $IMAGE_NAME; do
+	docker push "$IMAGE"
+done
