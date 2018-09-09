@@ -29,7 +29,7 @@ else
 fi
 
 DOCKER_BUILD_LIST=$(for IMAGE in $IMAGE_NAME; do printf -- "-t $IMAGE "; done)
-docker build "$DOCKER_BUILD_LIST"
+docker build $DOCKER_BUILD_LIST
 
 for IMAGE in $IMAGE_NAME; do
 	docker push "$IMAGE"
