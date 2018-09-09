@@ -2,14 +2,26 @@
 stages:
   - poll
 
-poll:markdownlint-cli:
+poll:markdownlint-cli:npm:
   stage: poll
   image: node:alpine
   before_script:
     - node --version
     - npm --version
   script:
-    - .scripts/trigger_docker_hub.sh
+    - .scripts/poll_npm_version.sh
+  only:
+    - schedules
+    - web
+
+poll:markdownlint-cli:node_docker_hub:
+  stage: poll
+  image: node:alpine
+  before_script:
+    - node --version
+    - npm --version
+  script:
+    - .scripts/poll_node_docker_hub.sh
   only:
     - schedules
     - web
