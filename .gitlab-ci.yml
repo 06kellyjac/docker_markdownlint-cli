@@ -73,3 +73,87 @@ build:docker:0.13.0:
     - docker --version
   script:
     - .scripts/ci_build.sh
+
+build:docker:0.13.0-slim:
+  stage: build
+  only:
+    - master
+  image: docker
+  services:
+    - docker:dind
+  before_script:
+    - docker --version
+  script:
+    - .scripts/ci_build.sh
+
+build:docker:0.12.0:
+  stage: build
+  only:
+    - master
+  image: docker
+  services:
+    - docker:dind
+  before_script:
+    - docker --version
+  script:
+    - .scripts/ci_build.sh
+
+build:docker:0.12.0-slim:
+  stage: build
+  only:
+    - master
+  image: docker
+  services:
+    - docker:dind
+  before_script:
+    - docker --version
+  script:
+    - .scripts/ci_build.sh
+
+build:docker:0.11.0:
+  stage: build
+  only:
+    - master
+  image: docker
+  services:
+    - docker:dind
+  before_script:
+    - docker --version
+  script:
+    - .scripts/ci_build.sh
+
+build:docker:0.11.0-slim:
+  stage: build
+  only:
+    - master
+  image: docker
+  services:
+    - docker:dind
+  before_script:
+    - docker --version
+  script:
+    - .scripts/ci_build.sh
+
+build:docker:0.10.0:
+  stage: build
+  only:
+    - master
+  image: docker
+  services:
+    - docker:dind
+  before_script:
+    - docker --version
+  script:
+    - .scripts/ci_build.sh
+
+build:docker:0.10.0-slim:
+  stage: build
+  only:
+    - master
+  image: docker
+  services:
+    - docker:dind
+  before_script:
+    - docker --version
+  script:
+    - .scripts/ci_build.sh
