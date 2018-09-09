@@ -14,13 +14,12 @@ set -x
 CI_JOB_NAME_END=$(echo "${CI_JOB_NAME}" | cut -d':' -f3)
 
 function generate_image_tag () {
-	set +u
-	echo "${CI_REGISTRY_IMAGE}:${CI_JOB_NAME_END}${1}"
+	echo "${CI_REGISTRY_IMAGE}:${CI_JOB_NAME_END}${1-}"
 }
 
 IMAGE_NAME="$(generate_image_tag)"
 
-if [[ "$CI_JOB_NAME_END" != *"-"* ]]; then
+if [[ "${CI_JOB_NAME_END#*'-'}" = "$CI_JOB_NAME_END" ]]; then
 	TAG=$(generate_image_tag "-${DEFAULT_BASE}")
 	IMAGE_NAME="$IMAGE_NAME $TAG"
 	TARGET_DIRECTORY="${DEFAULT_BASE}/${CI_JOB_NAME_END}"
