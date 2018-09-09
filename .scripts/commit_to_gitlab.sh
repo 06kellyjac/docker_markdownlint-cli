@@ -26,7 +26,7 @@ git config --global user.name "$USERNAME" && git config --global user.email "$EM
 git remote set-url origin git@gitlab.com:06kellyjac/docker_markdownlint-cli.git
 
 # Update the version file
-echo "$CONTENTS" > $TARGET_FILE
+echo "$NEW_CONTENTS" > $TARGET_FILE
 echo "Committing the change"
 git commit -am "[CI] Changed \`$TARGET_FILE\`: $OLD_CONTENTS -> $NEW_CONTENTS"
 echo
