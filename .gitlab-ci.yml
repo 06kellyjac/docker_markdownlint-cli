@@ -60,7 +60,7 @@ build:docker:latest-slim:
   before_script:
     - docker --version
   script:
-    - ./scripts/ci_build.sh
+    - .scripts/ci_build.sh
 
 build:docker:0.13.0:
   stage: build
@@ -72,4 +72,4 @@ build:docker:0.13.0:
   before_script:
     - docker --version
   script:
-    - ./scripts/ci_build.sh
+    - .scripts/ci_build.sh
