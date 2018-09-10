@@ -19,6 +19,7 @@ if [ "$GIT_LAST_UPDATED" != "$DOCKER_HUB_LAST_UPDATED" ]; then
 	echo
 	.scripts/commit_to_gitlab.sh "$UPDATE_FILE" "$GIT_LAST_UPDATED" "$DOCKER_HUB_LAST_UPDATED"
 	echo
+	# Only need to trigger GitLab as Docker Hub supports watching images for updates out of the box.
 	echo "Triggering a build on GitLab"
 	echo
 	.scripts/trigger_gitlab_ci.sh
