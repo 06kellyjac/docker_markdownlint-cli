@@ -13,9 +13,11 @@
 
 [![Pipeline][pipeline_badge]][pipeline_link]
 
-The CI is scheduled to check every hour for a new version of `markdownlint-cli` on `npm` and trigger a new build to ensure the `latest` Docker image is always up to date.
+The CI is scheduled to check every hour to check `npm` for the latest version of `markdownlint-cli` and check docker hub for the latest version of the `node` docker image.
 
-<https://gitlab.com/06kellyjac/docker_markdownlint-cli/pipeline_schedules>
+The schedule: <https://gitlab.com/06kellyjac/docker_markdownlint-cli/pipeline_schedules>
+
+More information on the polling: <https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/polling/README.md>
 
 # Supported tags and respective `Dockerfile` links
 
@@ -31,7 +33,11 @@ The CI is scheduled to check every hour for a new version of `markdownlint-cli` 
 [0.11.0_slim_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/slim/0.11.0/Dockerfile
 [0.10.0_slim_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/slim/0.10.0/Dockerfile
 
-- [`latest`: (*alpine/latest/Dockerfile*)][latest_dockerfile]
+Images are also available on GitLab: <https://gitlab.com/06kellyjac/docker_markdownlint-cli/container_registry>
+
+The build time for all the images on Docker Hub is **30 minutes plus**, GitLab is no longer than **4 minutes**.
+
+- [`latest-alpine`, `latest`: (*alpine/latest/Dockerfile*)][latest_dockerfile]
 - [`latest-slim`: (*slim/latest/Dockerfile*)][latest_slim_dockerfile]
 - [`0.13.0-alpine`, `0.13.0`: (*alpine/0.13.0/Dockerfile*)][0.13.0_dockerfile]
 - [`0.13.0-slim`: (*slim/0.13.0/Dockerfile*)][0.13.0_slim_dockerfile]
@@ -46,14 +52,16 @@ The Docker file also visible on the Docker Hub page: <https://hub.docker.com/r/0
 
 # How to use this image
 
-TODO
+[//]: # (TODO)
 
 GitLab CI Example:
 
-```YAML
+```yaml
 my_markdownlint_job:
   image:
     name: 06kellyjac/markdownlint-cli:latest
+    # or to use the image from GitLab rather than Docker Hub
+    # name: registry.gitlab.com/06kellyjac/docker_markdownlint-cli
     entrypoint:
       - "/usr/bin/env"
       - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
