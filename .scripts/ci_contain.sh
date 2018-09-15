@@ -9,8 +9,8 @@ docker login -u ${CI_REGISTRY_USER} -p ${CI_REGISTRY_PASSWORD} ${CI_REGISTRY}
 set -x
 
 # Get the end of the job name:
-# e.g.: build:docker:latest  OR  build:docker:0.13.0-slim
-#                    ^^^^^^                   ^^^^^^^^^^^
+# e.g.  contain:docker:latest  OR  contain:docker:0.13.0  OR  contain:docker:0.13.0-slim
+#                      ^^^^^^                     ^^^^^^                     ^^^^^^^^^^^
 CI_JOB_NAME_END=$(echo "${CI_JOB_NAME}" | cut -d':' -f3)
 
 function generate_image_tag () {

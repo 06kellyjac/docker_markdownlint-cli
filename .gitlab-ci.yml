@@ -1,7 +1,8 @@
 ---
 stages:
   - lint
-  - build
+  - contain
+  - scan
 
 lint:yaml:
   stage: lint
@@ -38,8 +39,8 @@ lint:docker:
     - LIST_OF_DOCKERFILES=$(find -path '.git' -prune -o -print | egrep ".*Dockerfile")
     - hadolint $LIST_OF_DOCKERFILES
 
-build:docker:latest:
-  stage: build
+contain:docker:latest:
+  stage: contain
   only:
     - master
   image: docker
@@ -48,10 +49,10 @@ build:docker:latest:
   before_script:
     - docker --version
   script:
-    - .scripts/ci_build.sh
+    - .scripts/ci_contain.sh
 
-build:docker:latest-slim:
-  stage: build
+contain:docker:latest-slim:
+  stage: contain
   only:
     - master
   image: docker
@@ -60,10 +61,10 @@ build:docker:latest-slim:
   before_script:
     - docker --version
   script:
-    - .scripts/ci_build.sh
+    - .scripts/ci_contain.sh
 
-build:docker:0.13.0:
-  stage: build
+contain:docker:0.13.0:
+  stage: contain
   only:
     - master
   image: docker
@@ -72,10 +73,10 @@ build:docker:0.13.0:
   before_script:
     - docker --version
   script:
-    - .scripts/ci_build.sh
+    - .scripts/ci_contain.sh
 
-build:docker:0.13.0-slim:
-  stage: build
+contain:docker:0.13.0-slim:
+  stage: contain
   only:
     - master
   image: docker
@@ -84,10 +85,10 @@ build:docker:0.13.0-slim:
   before_script:
     - docker --version
   script:
-    - .scripts/ci_build.sh
+    - .scripts/ci_contain.sh
 
-build:docker:0.12.0:
-  stage: build
+contain:docker:0.12.0:
+  stage: contain
   only:
     - master
   image: docker
@@ -96,10 +97,10 @@ build:docker:0.12.0:
   before_script:
     - docker --version
   script:
-    - .scripts/ci_build.sh
+    - .scripts/ci_contain.sh
 
-build:docker:0.12.0-slim:
-  stage: build
+contain:docker:0.12.0-slim:
+  stage: contain
   only:
     - master
   image: docker
@@ -108,10 +109,10 @@ build:docker:0.12.0-slim:
   before_script:
     - docker --version
   script:
-    - .scripts/ci_build.sh
+    - .scripts/ci_contain.sh
 
-build:docker:0.11.0:
-  stage: build
+contain:docker:0.11.0:
+  stage: contain
   only:
     - master
   image: docker
@@ -120,10 +121,10 @@ build:docker:0.11.0:
   before_script:
     - docker --version
   script:
-    - .scripts/ci_build.sh
+    - .scripts/ci_contain.sh
 
-build:docker:0.11.0-slim:
-  stage: build
+contain:docker:0.11.0-slim:
+  stage: contain
   only:
     - master
   image: docker
@@ -132,10 +133,10 @@ build:docker:0.11.0-slim:
   before_script:
     - docker --version
   script:
-    - .scripts/ci_build.sh
+    - .scripts/ci_contain.sh
 
-build:docker:0.10.0:
-  stage: build
+contain:docker:0.10.0:
+  stage: contain
   only:
     - master
   image: docker
@@ -144,10 +145,10 @@ build:docker:0.10.0:
   before_script:
     - docker --version
   script:
-    - .scripts/ci_build.sh
+    - .scripts/ci_contain.sh
 
-build:docker:0.10.0-slim:
-  stage: build
+contain:docker:0.10.0-slim:
+  stage: contain
   only:
     - master
   image: docker
@@ -156,4 +157,40 @@ build:docker:0.10.0-slim:
   before_script:
     - docker --version
   script:
-    - .scripts/ci_build.sh
+    - .scripts/ci_contain.sh
+
+container_scanning:
+  stage: scan
+  image: docker:stable
+  variables:
+    DOCKER_DRIVER: overlay2
+    DOCKER_IMAGE: $CI_REGISTRY_IMAGE
+  allow_failure: true
+  services:
+    - docker:stable-dind
+  script:
+    - docker run -d --name db arminc/clair-db:latest
+    - docker run -p 6060:6060 --link db:postgres -d --name clair --restart on-failure arminc/clair-local-scan:v2.0.1
+    - apk add -U wget ca-certificates
+    - docker pull ${DOCKER_IMAGE}
+    - wget -O clair-scanner https://github.com/arminc/clair-scanner/releases/download/v8/clair-scanner_linux_amd64
+    - chmod +x clair-scanner
+    - touch clair-whitelist.yml
+    - while( ! wget -q -O /dev/null http://docker:6060/v1/namespaces ) ; do sleep 1 ; done
+    - retries=0
+    - echo "Waiting for clair daemon to start"
+    - |
+      while( ! wget -timeout=10 -q -O /dev/null http://docker:6060/v1/namespaces ); do
+        sleep 1
+        echo -n "."
+        if [ $retries -eq 10 ]; then
+          echo " Timeout, aborting."
+          exit 1
+        fi
+      retries=$(($retries+1))
+      done
+    - >
+      ./clair-scanner -c http://docker:6060 --ip $(hostname -i) -r gl-container-scanning-report.json
+      -l clair.log -w clair-whitelist.yml ${DOCKER_IMAGE} || true
+  artifacts:
+    paths: [ gl-container-scanning-report.json ]
