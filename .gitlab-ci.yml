@@ -5,6 +5,17 @@ stages:
   - scan
 
 
+lint:shell:
+  stage: lint
+  image: docker
+  services:
+    - docker:dind
+  before_script:
+    - docker --version
+  script:
+    - LIST_OF_SHELL=$(find -path '.git' -prune -o -print | egrep "\.sh$")
+    - docker run -v "$PWD:/mnt" koalaman/shellcheck $LIST_OF_SHELL
+
 lint:yaml:
   stage: lint
   image: sdesbure/yamllint
