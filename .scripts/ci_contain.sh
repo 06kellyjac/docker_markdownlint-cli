@@ -4,18 +4,15 @@ set -euo pipefail
 DEFAULT_BASE="alpine"
 
 # Login
-docker login -u "${CI_REGISTRY_USER}" -p "${CI_REGISTRY_PASSWORD}" "${CI_REGISTRY}"
+echo "${CI_REGISTRY_PASSWORD}" | docker login -u "${CI_REGISTRY_USER}" --password-stdin "${CI_REGISTRY}"
 
 set -x
-
 # Get the end of the job name:
 # e.g.  contain:docker:latest  OR  contain:docker:0.13.0  OR  contain:docker:0.13.0-slim
 #                      ^^^^^^                     ^^^^^^                     ^^^^^^^^^^^
 CI_JOB_NAME_END=$(echo "${CI_JOB_NAME}" | cut -d':' -f3)
 
-generate_image_tag () {
-	echo "${CI_REGISTRY_IMAGE}:${CI_JOB_NAME_END}${1-}"
-}
+generate_image_tag () { echo "${CI_REGISTRY_IMAGE}:${CI_JOB_NAME_END}${1-}"; }
 
 IMAGE_NAME="$(generate_image_tag)"
 
@@ -28,7 +25,8 @@ else
 fi
 
 DOCKER_BUILD_LIST=$(for IMAGE in $IMAGE_NAME; do printf -- "-t %s " "$IMAGE"; done)
-docker build "$DOCKER_BUILD_LIST" "$TARGET_DIRECTORY"
+DOCKER_BUILD_COMMAND="docker build $DOCKER_BUILD_LIST $TARGET_DIRECTORY"
+command "$DOCKER_BUILD_COMMAND"
 
 for IMAGE in $IMAGE_NAME; do
 	docker push "$IMAGE"
