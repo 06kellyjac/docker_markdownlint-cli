@@ -12,7 +12,7 @@ echo "Preparing git"
 
 apk add --update openssh-client
 
-eval $(ssh-agent -s)
+eval "$(ssh-agent -s)"
 echo "$SSH_KEY" | tr -d '\r' | ssh-add - > /dev/null
 mkdir -p ~/.ssh && chmod 700 ~/.ssh
 ssh-keyscan gitlab.com >> ~/.ssh/known_hosts && chmod 644 ~/.ssh/known_hosts
@@ -26,7 +26,7 @@ git config --global user.name "$USERNAME" && git config --global user.email "$EM
 git remote set-url origin git@gitlab.com:06kellyjac/docker_markdownlint-cli.git
 
 # Update the version file
-echo "$NEW_CONTENTS" > $TARGET_FILE
+echo "$NEW_CONTENTS" > "$TARGET_FILE"
 echo "Committing the change"
 git commit -am "[CI] Changed \`$TARGET_FILE\`: $OLD_CONTENTS -> $NEW_CONTENTS"
 echo

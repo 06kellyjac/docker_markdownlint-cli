@@ -1,7 +1,7 @@
 #!/bin/sh
 set -eu
-UPDATE_FILE="UPDATED"
 
+UPDATE_FILE="UPDATED"
 DOCKER_API_URL="https://hub.docker.com/v2/repositories/library/node/"
 
 DATE_TIME_REGEX='"last_updated": "[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{6}Z"'
@@ -12,8 +12,9 @@ DOCKER_HUB_LAST_UPDATED=$(wget -qO- $DOCKER_API_URL | grep -oE "$DATE_TIME_REGEX
 echo "Docker Hub Node Image update date-time: $DOCKER_HUB_LAST_UPDATED"
 echo "Git Node Image update date-time: $GIT_LAST_UPDATED"
 echo
-
-if [ "$GIT_LAST_UPDATED" != "$DOCKER_HUB_LAST_UPDATED" ]; then
+if [ "$GIT_LAST_UPDATED" = "$DOCKER_HUB_LAST_UPDATED" ]; then
+	echo "Already @ the latest Node Image version"
+else
 	echo "Not @ the latest version"
 	echo "Committing updates"
 	echo
@@ -24,6 +25,4 @@ if [ "$GIT_LAST_UPDATED" != "$DOCKER_HUB_LAST_UPDATED" ]; then
 	echo
 	.scripts/trigger_gitlab_ci.sh
 	echo
-else
-	echo "Already @ the latest Node Image version"
 fi

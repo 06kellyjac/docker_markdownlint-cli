@@ -6,7 +6,7 @@ DOCKER_TRIGGER_URL="https://registry.hub.docker.com/u/06kellyjac/markdownlint-cl
 RESULT=$(\
 	wget \
 		-qO- --header "Content-Type: application/json" \
-		--post-data '{"source_type": "Branch", "source_name": "master"}' $DOCKER_TRIGGER_URL)
+		--post-data '{"source_type": "Branch", "source_name": "master"}' "$DOCKER_TRIGGER_URL")
 
 if [ "$RESULT" = "OK" ]; then
 	echo "Trigger sent successfully"
