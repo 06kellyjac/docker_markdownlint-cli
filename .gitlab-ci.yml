@@ -4,6 +4,7 @@ stages:
   - contain
   - scan
 
+
 lint:yaml:
   stage: lint
   image: sdesbure/yamllint
@@ -38,6 +39,7 @@ lint:docker:
   script:
     - LIST_OF_DOCKERFILES=$(find -path '.git' -prune -o -print | egrep ".*Dockerfile")
     - hadolint $LIST_OF_DOCKERFILES
+
 
 contain:docker:latest:
   stage: contain
@@ -158,6 +160,7 @@ contain:docker:0.10.0-slim:
     - docker --version
   script:
     - .scripts/ci_contain.sh
+
 
 container_scanning:
   stage: scan
