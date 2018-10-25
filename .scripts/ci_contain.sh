@@ -25,8 +25,8 @@ else
 fi
 
 DOCKER_BUILD_LIST=$(for IMAGE in $IMAGE_NAME; do printf -- "-t %s " "$IMAGE"; done)
-DOCKER_BUILD_COMMAND="docker build $DOCKER_BUILD_LIST $TARGET_DIRECTORY"
-command "$DOCKER_BUILD_COMMAND"
+# shellcheck disable=SC2086
+docker build $DOCKER_BUILD_LIST "$TARGET_DIRECTORY"
 
 for IMAGE in $IMAGE_NAME; do
 	docker push "$IMAGE"
