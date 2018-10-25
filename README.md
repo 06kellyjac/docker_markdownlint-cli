@@ -1,4 +1,6 @@
 [//]: # (<!-- markdownlint-disable MD013 -->)
+[//]: # (Disabled MD013 due to how Docker Hub formats newlines in markdown)
+[//]: # (Also using this funky commenting because Docker Hub shows HTML style markdown comments)
 
 [docker_stars_shield]: https://img.shields.io/docker/stars/06kellyjac/markdownlint-cli.svg?style=flat-square
 [docker_pulls_shield]: https://img.shields.io/docker/pulls/06kellyjac/markdownlint-cli.svg?style=flat-square
@@ -10,14 +12,20 @@
 
 [pipeline_badge]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/badges/master/pipeline.svg
 [pipeline_link]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/pipelines
+[scanning_badge]: https://img.shields.io/badge/security_scanning-click_me-%231DA0F7.svg
+[security_dashboard_link]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/security/dashboard
 
-[![Pipeline][pipeline_badge]][pipeline_link]
+[![Pipeline][pipeline_badge]][pipeline_link] [![Security Scanning][scanning_badge]][security_dashboard_link]
 
-The CI is scheduled to check every hour to check `npm` for the latest version of `markdownlint-cli` and check docker hub for the latest version of the `node` docker image.
+[//]: # (TODO: Swap to official scanning badges in the future: <https://gitlab.com/gitlab-org/gitlab-ee/issues/4713> <https://gitlab.com/gitlab-org/gitlab-ce/issues/49874>)
+
+The CI is scheduled to check every hour to check `npm` for the latest version of `markdownlint-cli` and check Docker Hub for the latest version of the `node` docker image.
 
 The schedule: <https://gitlab.com/06kellyjac/docker_markdownlint-cli/pipeline_schedules>
 
 More information on the polling: <https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/polling/README.md>
+
+There is also Clair security scanning performed on this container; click the badge above or [click here][security_dashboard_link] to view the result.
 
 # Supported tags and respective `Dockerfile` links
 
@@ -33,9 +41,9 @@ More information on the polling: <https://gitlab.com/06kellyjac/docker_markdownl
 [0.11.0_slim_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/slim/0.11.0/Dockerfile
 [0.10.0_slim_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/slim/0.10.0/Dockerfile
 
-Images are also available on GitLab: <https://gitlab.com/06kellyjac/docker_markdownlint-cli/container_registry>
+Images are also available on GitLab in the project's own registry: <https://gitlab.com/06kellyjac/docker_markdownlint-cli/container_registry>
 
-The build time for all the images on Docker Hub is **30 minutes plus**, GitLab is no longer than **4 minutes**.
+Docker Hub takes around **30 minutes plus** to build and push all the containers, GitLab takes around **2 minutes** to build and push all the containers (although it can be longer at "prime time").
 
 - [`latest-alpine`, `latest`: (*alpine/latest/Dockerfile*)][latest_dockerfile]
 - [`latest-slim`: (*slim/latest/Dockerfile*)][latest_slim_dockerfile]
@@ -48,28 +56,87 @@ The build time for all the images on Docker Hub is **30 minutes plus**, GitLab i
 - [`0.10.0-alpine`, `0.10.0`: (*alpine/0.10.0/Dockerfile*)][0.10.0_dockerfile]
 - [`0.10.0-slim`: (*slim/0.10.0/Dockerfile*)][0.10.0_slim_dockerfile]
 
-The Docker file also visible on the Docker Hub page: <https://hub.docker.com/r/06kellyjac/markdownlint-cli/~/dockerfile/>
+The `Dockerfile` is also visible on the Docker Hub page: <https://hub.docker.com/r/06kellyjac/markdownlint-cli/~/dockerfile/>
 
 # How to use this image
 
-[//]: # (TODO)
+## General
+
+Linting one file with STDIN:
+
+```shell
+docker run -i 06kellyjac/markdownlint-cli -s < README.md
+```
+
+Very easy way to lint one file.
+
+---
+
+Linting multiple files with STDIN:
+
+```shell
+cat README.md a.md b.md c.md other.md | docker run -i 06kellyjac/markdownlint-cli -s -
+```
+
+This is a quick and dirty way to lint multiple files. The downside is it's difficult to tell which file has linting issues.
+
+---
+
+Linting one file with STDIN and a custom `markdownlint` config
+
+```shell
+docker run -i -v $PWD/.markdownlint.json:/markdown/.markdownlint.json 06kellyjac/markdownlint-cli -s < README.md
+```
+
+This takes the first example and also mounts your `.markdownlint.json` config in the container. You may find the below example to be cleaner if all the files you want to lint are in your present working directory.
+
+---
+
+Linting files by mounting the whole present working directory into the container.
+
+```shell
+docker run -v $PWD:/markdown 06kellyjac/markdownlint-cli README.md a.md b.md c.md other_dir/other.md
+```
+
+This method is useful for linting files in the present working directory and also means you can mount your `.markdownlint.json` config at the same time.
+
+With a directory structure like so, where `this_directory` is your present working directory:
+
+```none
+this_directory
+├── .markdownlint.json
+├── README.md
+├── a.md
+├── b.md
+├── c.md
+└── other_dir
+    └── other.md
+```
+
+## CI
 
 GitLab CI Example:
 
 ```yaml
 my_markdownlint_job:
   image:
-    name: 06kellyjac/markdownlint-cli:latest
+    name: 06kellyjac/markdownlint-cli:0.13.0-alpine
     # or to use the image from GitLab rather than Docker Hub
-    # name: registry.gitlab.com/06kellyjac/docker_markdownlint-cli
+    # name: registry.gitlab.com/06kellyjac/docker_markdownlint-cli:0.13.0-alpine
     entrypoint:
       - "/usr/bin/env"
       - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
   before_script:
     - markdownlint --version
   script:
-    - markdownlint my_file.md
+    - markdownlint my_file.md my_other_file.md
 ```
+
+Since `markdownlint-cli` doesn't support globbing or regex searching you can either manually list files or you can supply it with a list of files that you automatically generate.
+
+The list of files must be on one line.
+
+You can generate a flat list of markdown files and ignore directories such as `.git` with the following command: `LIST_OF_MARKDOWN=$(find -path '.git' -prune -o -print | egrep "\.md$" | tr '\n' ' ')`. Or you can always create your own!
 
 # Quick reference
 
