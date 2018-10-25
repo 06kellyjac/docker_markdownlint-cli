@@ -12,7 +12,7 @@ lint:shell:
   before_script:
     - docker --version
   script:
-    - LIST_OF_MARKDOWN=$(find -path '.git' -prune -o -print | egrep "\.sh$"
+    - LIST_OF_MARKDOWN=$(find -path '.git' -prune -o -print | egrep "\.sh$")
     - docker run -v "$PWD:/mnt" koalaman/shellcheck $LIST_OF_MARKDOWN
 
 lint:yaml:
