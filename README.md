@@ -8,12 +8,16 @@
 [docker_hub]: https://hub.docker.com/r/06kellyjac/markdownlint-cli/
 [docker_hub_build]: https://hub.docker.com/r/06kellyjac/markdownlint-cli/builds/
 
-[![Docker Stars][docker_stars_shield]][docker_hub] [![Docker Pulls][docker_pulls_shield]][docker_hub] [![Docker Build Status][docker_build_shield]][docker_hub_build]
+Docker Hub Badges
+
+[![Docker Build Status][docker_build_shield]][docker_hub_build] [![Docker Stars][docker_stars_shield]][docker_hub] [![Docker Pulls][docker_pulls_shield]][docker_hub]
 
 [pipeline_badge]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/badges/master/pipeline.svg
 [pipeline_link]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/pipelines
 [scanning_badge]: https://img.shields.io/badge/security_scanning-click_me-%231DA0F7.svg
 [security_dashboard_link]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/security/dashboard
+
+GitLab Badges
 
 [![Pipeline][pipeline_badge]][pipeline_link] [![Security Scanning][scanning_badge]][security_dashboard_link]
 
@@ -41,9 +45,14 @@ There is also Clair security scanning performed on this container; click the bad
 [0.11.0_slim_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/slim/0.11.0/Dockerfile
 [0.10.0_slim_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/slim/0.10.0/Dockerfile
 
-Images are also available on GitLab in the project's own registry: <https://gitlab.com/06kellyjac/docker_markdownlint-cli/container_registry>
+Images are available on both Docker Hub and GitLab: <https://gitlab.com/06kellyjac/docker_markdownlint-cli/container_registry>
 
 Docker Hub takes around **30 minutes plus** to build and push all the containers, GitLab takes around **2 minutes** to build and push all the containers (although it can be longer at "prime time").
+Due to this, Images on GitLab will likely be more up-to-date by 15-30 minutes.
+
+Personally I also experience faster image downloads from GitLab but your networking situation may differ.
+
+At the end of the day there is marginal difference but for using this image in your GitLab CI pipelines on [gitlab.com](https://gitlab.com) it makes sense to use the image from GitLab's own registry.
 
 - [`latest-alpine`, `latest`: (*alpine/latest/Dockerfile*)][latest_dockerfile]
 - [`latest-slim`: (*slim/latest/Dockerfile*)][latest_slim_dockerfile]
@@ -60,6 +69,8 @@ The `Dockerfile` is also visible on the Docker Hub page: <https://hub.docker.com
 
 # How to use this image
 
+If you're using the image from the GitLab registry replace all instances of `06kellyjac/markdownlint-cli` with `registry.gitlab.com/06kellyjac/docker_markdownlint-cli`.
+
 ## General
 
 Linting one file with STDIN:
@@ -68,7 +79,7 @@ Linting one file with STDIN:
 docker run -i 06kellyjac/markdownlint-cli -s < README.md
 ```
 
-Very easy way to lint one file.
+This is an easy way to lint one file.
 
 ---
 
@@ -88,7 +99,7 @@ Linting one file with STDIN and a custom `markdownlint` config
 docker run -i -v $PWD/.markdownlint.json:/markdown/.markdownlint.json 06kellyjac/markdownlint-cli -s < README.md
 ```
 
-This takes the first example and also mounts your `.markdownlint.json` config in the container. You may find the below example to be cleaner if all the files you want to lint are in your present working directory.
+This takes the first example and also mounts your `.markdownlint.json` config into the container. You may find the below example to be cleaner if all the files you want to lint are in your present working directory.
 
 ---
 
@@ -122,6 +133,7 @@ my_markdownlint_job:
   image:
     name: 06kellyjac/markdownlint-cli:0.13.0-alpine
     # or to use the image from GitLab rather than Docker Hub
+    # replace it with the line below
     # name: registry.gitlab.com/06kellyjac/docker_markdownlint-cli:0.13.0-alpine
     entrypoint:
       - "/usr/bin/env"
