@@ -10,7 +10,7 @@ GIT_VERSION=$(cat "$VERSION_FILE")
 NPM_VERSION=$(npm search --parseable markdownlint-cli | cut -f5)
 
 echo "NPM Version: $NPM_VERSION"
-echo "GIT Version: $GIT_VERSION"
+echo "Git Version: $GIT_VERSION"
 echo
 if [ "$GIT_VERSION" = "$NPM_VERSION" ]; then
 	echo "Already @ the latest version"

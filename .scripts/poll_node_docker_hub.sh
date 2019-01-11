@@ -1,7 +1,11 @@
 #!/bin/sh
 set -eu
 
+# DOCKER_HUB_TRIGGER_TOKEN must be defined for `trigger_docker_hub.sh`
+[ -n "$DOCKER_HUB_TRIGGER_TOKEN" ]
+
 UPDATE_FILE="UPDATED"
+
 DOCKER_API_URL="https://hub.docker.com/v2/repositories/library/node/"
 
 DATE_TIME_REGEX='"last_updated": "[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{6}Z"'
@@ -25,4 +29,7 @@ else
 	echo
 	.scripts/trigger_gitlab_ci.sh
 	echo
+	echo "Triggering a build on Docker Hub"
+	echo
+	.scripts/trigger_docker.sh
 fi
