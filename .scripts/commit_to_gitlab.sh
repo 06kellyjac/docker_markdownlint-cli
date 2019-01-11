@@ -6,7 +6,7 @@ OLD_CONTENTS="$2"
 NEW_CONTENTS="$3"
 
 USERNAME="06kellyjac - CI"
-EMAIL="06kellyjac@googlemail.com"
+EMAIL="dev@j-k.io"
 
 echo "Preparing git"
 
