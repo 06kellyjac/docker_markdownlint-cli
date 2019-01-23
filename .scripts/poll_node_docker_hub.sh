@@ -31,5 +31,5 @@ else
 	echo
 	echo "Triggering a build on Docker Hub"
 	echo
-	.scripts/trigger_docker.sh
+	.scripts/trigger_docker_hub.sh
 fi
