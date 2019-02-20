@@ -4,7 +4,7 @@ set -eu
 # DOCKER_HUB_TRIGGER_TOKEN must be defined for `trigger_docker_hub.sh`
 [ -n "$DOCKER_HUB_TRIGGER_TOKEN" ]
 
-UPDATE_FILE="UPDATED"
+UPDATE_FILE="docker_node_updated_datetime"
 
 DOCKER_API_URL="https://hub.docker.com/v2/repositories/library/node/"
 

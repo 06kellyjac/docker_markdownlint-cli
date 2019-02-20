@@ -4,7 +4,7 @@ set -eu
 # DOCKER_HUB_TRIGGER_TOKEN must be defined for `trigger_docker_hub.sh`
 [ -n "$DOCKER_HUB_TRIGGER_TOKEN" ]
 
-VERSION_FILE="VERSION"
+VERSION_FILE="markdown-cli_version"
 
 GIT_VERSION=$(cat "$VERSION_FILE")
 NPM_VERSION=$(npm search --parseable markdownlint-cli | cut -f5)
