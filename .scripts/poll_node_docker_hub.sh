@@ -28,8 +28,4 @@ else
 	echo "Triggering a build on GitLab"
 	echo
 	.scripts/trigger_gitlab_ci.sh
-	echo
-	echo "Triggering a build on Docker Hub"
-	echo
-	.scripts/trigger_docker_hub.sh
 fi
