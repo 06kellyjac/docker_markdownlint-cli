@@ -21,8 +21,7 @@ lint:yaml:
   before_script:
     - yamllint --version
   script:
-    - LIST_OF_YAML=$(find -path '.git' -prune -o -print | egrep "\.ya?ml$")
-    - yamllint --strict --config-file .yamllint.yaml $LIST_OF_YAML
+    - yamllint --strict --config-file .yamllint.yaml .
 
 lint:markdown:docker_hub:
   stage: lint
@@ -34,8 +33,7 @@ lint:markdown:docker_hub:
   before_script:
     - markdownlint --version
   script:
-    - LIST_OF_MARKDOWN=$(find -path '.git' -prune -o -print | egrep "\.md$" | tr '\n' ' ')
-    - markdownlint $LIST_OF_MARKDOWN
+    - markdownlint .
 
 lint:markdown:gitlab:
   stage: lint
@@ -47,8 +45,7 @@ lint:markdown:gitlab:
   before_script:
     - markdownlint --version
   script:
-    - LIST_OF_MARKDOWN=$(find -path '.git' -prune -o -print | egrep "\.md$" | tr '\n' ' ')
-    - markdownlint $LIST_OF_MARKDOWN
+    - markdownlint .
 
 
 poll:npm:
