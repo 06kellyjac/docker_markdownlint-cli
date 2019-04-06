@@ -86,6 +86,30 @@ contain:docker:latest-slim:
   script:
     - .scripts/ci_contain.sh
 
+contain:docker:0.15.0:
+  stage: contain
+  only:
+    - master
+  image: docker
+  services:
+    - docker:dind
+  before_script:
+    - docker --version
+  script:
+    - .scripts/ci_contain.sh
+
+contain:docker:0.15.0-slim:
+  stage: contain
+  only:
+    - master
+  image: docker
+  services:
+    - docker:dind
+  before_script:
+    - docker --version
+  script:
+    - .scripts/ci_contain.sh
+
 contain:docker:0.14.0:
   stage: contain
   only:

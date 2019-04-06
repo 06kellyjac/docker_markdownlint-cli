@@ -34,6 +34,7 @@ There is also Clair security scanning performed on this container; click the bad
 # Supported tags and respective `Dockerfile` links
 
 [latest_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/alpine/latest/Dockerfile
+[0.15.0_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/alpine/0.15.0/Dockerfile
 [0.14.0_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/alpine/0.14.0/Dockerfile
 [0.13.0_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/alpine/0.13.0/Dockerfile
 [0.12.0_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/alpine/0.12.0/Dockerfile
@@ -41,6 +42,7 @@ There is also Clair security scanning performed on this container; click the bad
 [0.10.0_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/alpine/0.10.0/Dockerfile
 
 [latest_slim_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/slim/latest/Dockerfile
+[0.15.0_slim_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/slim/0.15.0/Dockerfile
 [0.14.0_slim_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/slim/0.14.0/Dockerfile
 [0.13.0_slim_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/slim/0.13.0/Dockerfile
 [0.12.0_slim_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/slim/0.12.0/Dockerfile
@@ -58,6 +60,8 @@ At the end of the day there is marginal difference but for using this image in y
 
 - [`latest-alpine`, `latest`: (*alpine/latest/Dockerfile*)][latest_dockerfile]
 - [`latest-slim`: (*slim/latest/Dockerfile*)][latest_slim_dockerfile]
+- [`0.15.0-alpine`, `0.15.0`: (*alpine/0.15.0/Dockerfile*)][0.15.0_dockerfile]
+- [`0.15.0-slim`: (*slim/0.15.0/Dockerfile*)][0.15.0_slim_dockerfile]
 - [`0.14.0-alpine`, `0.14.0`: (*alpine/0.14.0/Dockerfile*)][0.14.0_dockerfile]
 - [`0.14.0-slim`: (*slim/0.14.0/Dockerfile*)][0.14.0_slim_dockerfile]
 - [`0.13.0-alpine`, `0.13.0`: (*alpine/0.13.0/Dockerfile*)][0.13.0_dockerfile]
