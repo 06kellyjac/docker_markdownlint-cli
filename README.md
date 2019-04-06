@@ -113,6 +113,12 @@ Linting files by mounting the whole present working directory into the container
 docker run -v $PWD:/markdown 06kellyjac/markdownlint-cli README.md a.md b.md c.md other_dir/other.md
 ```
 
+or
+
+```shell
+docker run -v $PWD:/markdown 06kellyjac/markdownlint-cli .
+```
+
 This method is useful for linting files in the present working directory and also means you can mount your `.markdownlint.json` config at the same time.
 
 With a directory structure like so, where `this_directory` is your present working directory:
@@ -145,14 +151,8 @@ my_markdownlint_job:
   before_script:
     - markdownlint --version
   script:
-    - markdownlint my_file.md my_other_file.md
+    - markdownlint .
 ```
-
-Since `markdownlint-cli` doesn't support globbing or regex searching you can either manually list files or you can supply it with a list of files that you automatically generate.
-
-The list of files must be on one line.
-
-You can generate a flat list of markdown files and ignore directories such as `.git` with the following command: `LIST_OF_MARKDOWN=$(find -path '.git' -prune -o -print | egrep "\.md$" | tr '\n' ' ')`. Or you can always create your own!
 
 # Quick reference
 
