@@ -23,6 +23,19 @@ GitLab Badges
 
 [//]: # (TODO: Swap to official scanning badges in the future: <https://gitlab.com/gitlab-org/gitlab-ee/issues/4713> <https://gitlab.com/gitlab-org/gitlab-ce/issues/49874>)
 
+[microbadger_latest_shield]: https://images.microbadger.com/badges/image/06kellyjac/markdownlint-cli.svg
+[microbadger_latest]: https://microbadger.com/images/06kellyjac/markdownlint-cli
+[microbadger_latest-slim_shield]: https://images.microbadger.com/badges/image/06kellyjac/markdownlint-cli:latest-slim.svg
+[microbadger_latest]: https://microbadger.com/images/06kellyjac/markdownlint-cli
+[microbadger_latest-slim]: https://microbadger.com/images/06kellyjac/markdownlint-cli:latest-slim
+
+MicroBadger
+
+| Tag | Badge |
+|-----|-------|
+| `latest` | [![MicroBadger Details - latest][microbadger_latest_shield]][microbadger_latest] |
+| `latest-slim` | [![MicroBadger Details - latest-slim][microbadger_latest-slim_shield]][microbadger_latest-slim] |
+
 The CI is scheduled to check every hour to check `npm` for the latest version of `markdownlint-cli` and check Docker Hub for the latest version of the `node` docker image.
 
 The schedule: <https://gitlab.com/06kellyjac/docker_markdownlint-cli/pipeline_schedules>
