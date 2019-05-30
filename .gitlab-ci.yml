@@ -14,6 +14,8 @@ lint:shell:
   script:
     - LIST_OF_SHELL=$(find -path '.git' -prune -o -print | egrep "\.sh$")
     - docker run -v "$PWD:/mnt" koalaman/shellcheck $LIST_OF_SHELL
+  except:
+    - schedules
 
 lint:yaml:
   stage: lint
@@ -22,6 +24,8 @@ lint:yaml:
     - yamllint --version
   script:
     - yamllint --strict --config-file .yamllint.yaml .
+  except:
+    - schedules
 
 lint:markdown:docker_hub:
   stage: lint
@@ -34,6 +38,8 @@ lint:markdown:docker_hub:
     - markdownlint --version
   script:
     - markdownlint .
+  except:
+    - schedules
 
 lint:markdown:gitlab:
   stage: lint
@@ -46,6 +52,8 @@ lint:markdown:gitlab:
     - markdownlint --version
   script:
     - markdownlint .
+  except:
+    - schedules
 
 
 poll:npm:
