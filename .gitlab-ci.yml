@@ -29,6 +29,7 @@ lint:yaml:
 
 # Common markdown config
 .markdown: &markdown
+  stage: lint
   image:
     name: registry.gitlab.com/06kellyjac/docker_markdownlint-cli
     entrypoint:
