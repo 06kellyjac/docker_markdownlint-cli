@@ -62,7 +62,7 @@ lint:docker:
     - hadolint $LIST_OF_DOCKERFILES
 
 
-contain:docker:latest:
+.contain: &contain
   stage: contain
   only:
     - master
@@ -73,162 +73,60 @@ contain:docker:latest:
     - docker --version
   script:
     - .scripts/ci_contain.sh
+
+contain:docker:latest:
+  <<: *contain
 
 contain:docker:latest-slim:
-  stage: contain
-  only:
-    - master
-  image: docker
-  services:
-    - docker:dind
-  before_script:
-    - docker --version
-  script:
-    - .scripts/ci_contain.sh
+  <<: *contain
+
+contain:docker:0.17.0:
+  <<: *contain
+
+contain:docker:0.17.0-slim:
+  <<: *contain
+
+contain:docker:0.16.0:
+  <<: *contain
+
+contain:docker:0.16.0-slim:
+  <<: *contain
 
 contain:docker:0.15.0:
-  stage: contain
-  only:
-    - master
-  image: docker
-  services:
-    - docker:dind
-  before_script:
-    - docker --version
-  script:
-    - .scripts/ci_contain.sh
+  <<: *contain
 
 contain:docker:0.15.0-slim:
-  stage: contain
-  only:
-    - master
-  image: docker
-  services:
-    - docker:dind
-  before_script:
-    - docker --version
-  script:
-    - .scripts/ci_contain.sh
+  <<: *contain
 
 contain:docker:0.14.0:
-  stage: contain
-  only:
-    - master
-  image: docker
-  services:
-    - docker:dind
-  before_script:
-    - docker --version
-  script:
-    - .scripts/ci_contain.sh
+  <<: *contain
 
 contain:docker:0.14.0-slim:
-  stage: contain
-  only:
-    - master
-  image: docker
-  services:
-    - docker:dind
-  before_script:
-    - docker --version
-  script:
-    - .scripts/ci_contain.sh
+  <<: *contain
 
 contain:docker:0.13.0:
-  stage: contain
-  only:
-    - master
-  image: docker
-  services:
-    - docker:dind
-  before_script:
-    - docker --version
-  script:
-    - .scripts/ci_contain.sh
+  <<: *contain
 
 contain:docker:0.13.0-slim:
-  stage: contain
-  only:
-    - master
-  image: docker
-  services:
-    - docker:dind
-  before_script:
-    - docker --version
-  script:
-    - .scripts/ci_contain.sh
+  <<: *contain
 
 contain:docker:0.12.0:
-  stage: contain
-  only:
-    - master
-  image: docker
-  services:
-    - docker:dind
-  before_script:
-    - docker --version
-  script:
-    - .scripts/ci_contain.sh
+  <<: *contain
 
 contain:docker:0.12.0-slim:
-  stage: contain
-  only:
-    - master
-  image: docker
-  services:
-    - docker:dind
-  before_script:
-    - docker --version
-  script:
-    - .scripts/ci_contain.sh
+  <<: *contain
 
 contain:docker:0.11.0:
-  stage: contain
-  only:
-    - master
-  image: docker
-  services:
-    - docker:dind
-  before_script:
-    - docker --version
-  script:
-    - .scripts/ci_contain.sh
+  <<: *contain
 
 contain:docker:0.11.0-slim:
-  stage: contain
-  only:
-    - master
-  image: docker
-  services:
-    - docker:dind
-  before_script:
-    - docker --version
-  script:
-    - .scripts/ci_contain.sh
+  <<: *contain
 
 contain:docker:0.10.0:
-  stage: contain
-  only:
-    - master
-  image: docker
-  services:
-    - docker:dind
-  before_script:
-    - docker --version
-  script:
-    - .scripts/ci_contain.sh
+  <<: *contain
 
 contain:docker:0.10.0-slim:
-  stage: contain
-  only:
-    - master
-  image: docker
-  services:
-    - docker:dind
-  before_script:
-    - docker --version
-  script:
-    - .scripts/ci_contain.sh
+  <<: *contain
 
 
 container_scanning:
