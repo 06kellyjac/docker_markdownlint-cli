@@ -4,6 +4,14 @@ stages:
   - poll
 
 
+.env_entrypoint:
+  image:
+    name: _ # Placeholder to keep YAML schemea happy
+    entrypoint: &env_entrypoint
+      - "/usr/bin/env"
+      - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+
+
 lint:shell:
   stage: lint
   image: docker
@@ -30,11 +38,6 @@ lint:yaml:
 # Common markdown config
 .markdown: &markdown
   stage: lint
-  image:
-    name: registry.gitlab.com/06kellyjac/docker_markdownlint-cli
-    entrypoint:
-      - "/usr/bin/env"
-      - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
   before_script:
     - markdownlint --version
   script:
@@ -45,9 +48,13 @@ lint:yaml:
 lint:markdown:docker_hub:
   image:
     name: 06kellyjac/markdownlint-cli
+    entrypoint: *env_entrypoint
   <<: *markdown
 
 lint:markdown:gitlab:
+  image:
+    name: registry.gitlab.com/06kellyjac/docker_markdownlint-cli
+    entrypoint: *env_entrypoint
   <<: *markdown
 
 
