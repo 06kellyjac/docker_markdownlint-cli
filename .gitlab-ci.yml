@@ -27,22 +27,8 @@ lint:yaml:
   except:
     - schedules
 
-lint:markdown:docker_hub:
-  stage: lint
-  image:
-    name: 06kellyjac/markdownlint-cli
-    entrypoint:
-      - "/usr/bin/env"
-      - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-  before_script:
-    - markdownlint --version
-  script:
-    - markdownlint .
-  except:
-    - schedules
-
-lint:markdown:gitlab:
-  stage: lint
+# Common markdown config
+.markdown: &markdown
   image:
     name: registry.gitlab.com/06kellyjac/docker_markdownlint-cli
     entrypoint:
@@ -54,6 +40,14 @@ lint:markdown:gitlab:
     - markdownlint .
   except:
     - schedules
+
+lint:markdown:docker_hub:
+  <<: *markdown
+  image:
+    name: 06kellyjac/markdownlint-cli
+
+lint:markdown:gitlab:
+  <<: *markdown
 
 
 poll:npm:
