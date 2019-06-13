@@ -24,19 +24,8 @@ lint:yaml:
   script:
     - yamllint --strict --config-file .yamllint.yaml .
 
-lint:markdown:docker_hub:
-  stage: lint
-  image:
-    name: 06kellyjac/markdownlint-cli
-    entrypoint:
-      - "/usr/bin/env"
-      - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-  before_script:
-    - markdownlint --version
-  script:
-    - markdownlint .
-
-lint:markdown:gitlab:
+# Common markdown config
+.markdown: &markdown
   stage: lint
   image:
     name: registry.gitlab.com/06kellyjac/docker_markdownlint-cli
@@ -47,6 +36,14 @@ lint:markdown:gitlab:
     - markdownlint --version
   script:
     - markdownlint .
+
+lint:markdown:docker_hub:
+  <<: *markdown
+  image:
+    name: 06kellyjac/markdownlint-cli
+
+lint:markdown:gitlab:
+  <<: *markdown
 
 lint:docker:
   stage: lint
