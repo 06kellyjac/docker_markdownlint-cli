@@ -43,9 +43,9 @@ lint:yaml:
     - schedules
 
 lint:markdown:docker_hub:
-  <<: *markdown
   image:
     name: 06kellyjac/markdownlint-cli
+  <<: *markdown
 
 lint:markdown:gitlab:
   <<: *markdown
