@@ -39,7 +39,7 @@ lint:yaml:
 .markdown:
   stage: lint
   image:
-    name: 06kellyjac/markdownlint-cli
+    name: registry.gitlab.com/06kellyjac/docker_markdownlint-cli
     entrypoint: *env_entrypoint
   before_script:
     - markdownlint --version
