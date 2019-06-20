@@ -5,6 +5,14 @@ stages:
   - scan
 
 
+.env_entrypoint:
+  image:
+    name: _ # Placeholder to keep YAML schemea happy
+    entrypoint: &env_entrypoint
+      - "/usr/bin/env"
+      - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+
+
 lint:shell:
   stage: lint
   image: docker
@@ -25,33 +33,29 @@ lint:yaml:
     - yamllint --strict --config-file .yamllint.yaml .
 
 # Common markdown config
-.markdown: &markdown
+.markdown:
   stage: lint
   image:
     name: registry.gitlab.com/06kellyjac/docker_markdownlint-cli
-    entrypoint:
-      - "/usr/bin/env"
-      - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+    entrypoint: *env_entrypoint
   before_script:
     - markdownlint --version
   script:
     - markdownlint .
 
 lint:markdown:docker_hub:
-  <<: *markdown
+  extends: .markdown
   image:
     name: 06kellyjac/markdownlint-cli
 
 lint:markdown:gitlab:
-  <<: *markdown
+  extends: .markdown
 
 lint:docker:
   stage: lint
   image:
     name: hadolint/hadolint:latest-debian
-    entrypoint:
-      - "/usr/bin/env"
-      - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+    entrypoint: *env_entrypoint
   before_script:
     - hadolint --version
   script:
@@ -59,7 +63,7 @@ lint:docker:
     - hadolint $LIST_OF_DOCKERFILES
 
 
-.contain: &contain
+.contain:
   stage: contain
   only:
     - master
@@ -72,58 +76,58 @@ lint:docker:
     - .scripts/ci_contain.sh
 
 contain:docker:latest:
-  <<: *contain
+  extends: contain
 
 contain:docker:latest-slim:
-  <<: *contain
+  extends: contain
 
 contain:docker:0.17.0:
-  <<: *contain
+  extends: contain
 
 contain:docker:0.17.0-slim:
-  <<: *contain
+  extends: contain
 
 contain:docker:0.16.0:
-  <<: *contain
+  extends: contain
 
 contain:docker:0.16.0-slim:
-  <<: *contain
+  extends: contain
 
 contain:docker:0.15.0:
-  <<: *contain
+  extends: contain
 
 contain:docker:0.15.0-slim:
-  <<: *contain
+  extends: contain
 
 contain:docker:0.14.0:
-  <<: *contain
+  extends: contain
 
 contain:docker:0.14.0-slim:
-  <<: *contain
+  extends: contain
 
 contain:docker:0.13.0:
-  <<: *contain
+  extends: contain
 
 contain:docker:0.13.0-slim:
-  <<: *contain
+  extends: contain
 
 contain:docker:0.12.0:
-  <<: *contain
+  extends: contain
 
 contain:docker:0.12.0-slim:
-  <<: *contain
+  extends: contain
 
 contain:docker:0.11.0:
-  <<: *contain
+  extends: contain
 
 contain:docker:0.11.0-slim:
-  <<: *contain
+  extends: contain
 
 contain:docker:0.10.0:
-  <<: *contain
+  extends: contain
 
 contain:docker:0.10.0-slim:
-  <<: *contain
+  extends: contain
 
 
 container_scanning:
