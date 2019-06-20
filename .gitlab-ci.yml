@@ -36,8 +36,11 @@ lint:yaml:
     - schedules
 
 # Common markdown config
-.markdown: &markdown
+.markdown:
   stage: lint
+  image:
+    name: 06kellyjac/markdownlint-cli
+    entrypoint: *env_entrypoint
   before_script:
     - markdownlint --version
   script:
@@ -46,16 +49,12 @@ lint:yaml:
     - schedules
 
 lint:markdown:docker_hub:
+  extends: .markdown
   image:
     name: 06kellyjac/markdownlint-cli
-    entrypoint: *env_entrypoint
-  <<: *markdown
 
 lint:markdown:gitlab:
-  image:
-    name: registry.gitlab.com/06kellyjac/docker_markdownlint-cli
-    entrypoint: *env_entrypoint
-  <<: *markdown
+  extends: .markdown
 
 
 poll:npm:
