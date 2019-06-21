@@ -4,8 +4,7 @@ set -eu
 # DOCKER_HUB_TRIGGER_TOKEN must be defined to trigger Docker Hub
 [ -n "$DOCKER_HUB_TRIGGER_TOKEN" ]
 
-# GITLAB_TRIGGER_URL and CI_JOB_TOKEN must be defined to trigger GitLab
-[ -n "$GITLAB_TRIGGER_URL" ]
+# CI_JOB_TOKEN must be defined to trigger GitLab
 [ -n "$CI_JOB_TOKEN" ]
 
 CONTAINER_UPDATE_FILE="docker_node_updated_datetime"
