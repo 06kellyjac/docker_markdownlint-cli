@@ -11,7 +11,7 @@ CONTAINER_UPDATE_FILE="docker_node_updated_datetime"
 MARKDOWN_VERSION_FILE="markdown-cli_version"
 
 GIT_CONTAINER_LAST_UPDATED=$(cat "$CONTAINER_UPDATE_FILE")
-DOCKER_HUB_CONTAINER_LAST_UPDATED=$(get_docker_hub_version.sh)
+DOCKER_HUB_CONTAINER_LAST_UPDATED=$(.scripts/get_docker_hub_version.sh)
 
 GIT_MARKDOWN_VERSION=$(cat "$MARKDOWN_VERSION_FILE")
 NPM_MARKDOWN_VERSION=$(npm search --parseable markdownlint-cli | cut -f5 | head -n1)
