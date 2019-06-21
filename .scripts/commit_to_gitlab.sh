@@ -1,9 +1,7 @@
 #!/bin/sh
 set -eu
 
-TARGET_FILE="$1"
-OLD_CONTENTS="$2"
-NEW_CONTENTS="$3"
+COMMIT_MESSAGE="$1"
 
 USERNAME="06kellyjac - CI"
 EMAIL="dev@j-k.io"
@@ -25,10 +23,8 @@ git config --global user.name "$USERNAME" && git config --global user.email "$EM
 # Make sure the origin is using git rather than https
 git remote set-url origin git@gitlab.com:06kellyjac/docker_markdownlint-cli.git
 
-# Update the version file
-echo "$NEW_CONTENTS" > "$TARGET_FILE"
 echo "Committing the change"
-git commit -am "[CI] Changed \`$TARGET_FILE\`: $OLD_CONTENTS -> $NEW_CONTENTS"
+git commit -am "[CI] Changed $COMMIT_MESSAGE"
 echo
 echo "Pushing the change"
 git push origin HEAD:"$CI_COMMIT_REF_NAME"

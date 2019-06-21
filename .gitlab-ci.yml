@@ -4,6 +4,14 @@ stages:
   - poll
 
 
+.env_entrypoint:
+  image:
+    name: _ # Placeholder to keep YAML schemea happy
+    entrypoint: &env_entrypoint
+      - "/usr/bin/env"
+      - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+
+
 lint:shell:
   stage: lint
   image: docker
@@ -27,27 +35,12 @@ lint:yaml:
   except:
     - schedules
 
-lint:markdown:docker_hub:
-  stage: lint
-  image:
-    name: 06kellyjac/markdownlint-cli
-    entrypoint:
-      - "/usr/bin/env"
-      - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-  before_script:
-    - markdownlint --version
-  script:
-    - markdownlint .
-  except:
-    - schedules
-
-lint:markdown:gitlab:
+# Common markdown config
+.markdown:
   stage: lint
   image:
     name: registry.gitlab.com/06kellyjac/docker_markdownlint-cli
-    entrypoint:
-      - "/usr/bin/env"
-      - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+    entrypoint: *env_entrypoint
   before_script:
     - markdownlint --version
   script:
@@ -55,24 +48,23 @@ lint:markdown:gitlab:
   except:
     - schedules
 
+lint:markdown:docker_hub:
+  extends: .markdown
+  image:
+    name: 06kellyjac/markdownlint-cli
 
-poll:npm:
+lint:markdown:gitlab:
+  extends: .markdown
+
+
+poll:
   stage: poll
   image: node:alpine
   before_script:
     - node --version
     - npm --version
   script:
-    - .scripts/poll_npm_version.sh
-  only:
-    - schedules
-    - web
-
-poll:docker_hub:
-  stage: poll
-  image: alpine
-  script:
-    - .scripts/poll_node_docker_hub.sh
+    - .scripts/polling.sh
   only:
     - schedules
     - web
