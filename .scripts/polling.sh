@@ -25,7 +25,7 @@ generate_commit_message() {
 }
 
 
-echo "Docker Hub Node Image update date-time: $DOCKER_HUB_LAST_UPDATED"
+echo "Docker Hub Node Image update date-time: $DOCKER_HUB_CONTAINER_LAST_UPDATED"
 echo "Git Node Image update date-time: $GIT_CONTAINER_LAST_UPDATED"
 echo
 
