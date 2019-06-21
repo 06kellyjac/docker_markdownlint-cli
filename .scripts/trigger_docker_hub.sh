@@ -8,10 +8,10 @@ DOCKER_TRIGGER_URL="https://registry.hub.docker.com/u/06kellyjac/markdownlint-cl
 
 RESULT=$(\
 	wget \
-		-qO- --header "Content-Type: application/json" \
-		--post-data '{"source_type": "Branch", "source_name": "master"}' "$DOCKER_TRIGGER_URL")
+		-S -qO- --header "Content-Type: application/json" \
+		--post-data '{"source_type": "Branch", "source_name": "master"}' "$DOCKER_TRIGGER_URL" 2>&1)
 
-if [ "$RESULT" = "OK" ]; then
+if echo "$RESULT" | grep -q "200 OK"; then
 	echo "Trigger sent successfully"
 else
 	echo "ERROR: Trigger not sent successfully"

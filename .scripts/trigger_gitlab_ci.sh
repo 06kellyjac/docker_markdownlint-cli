@@ -5,9 +5,9 @@ set -eu
 [ -n "$CI_JOB_TOKEN" ]
 
 GITLAB_TRIGGER_URL="https://gitlab.com/api/v4/projects/8206202/trigger/pipeline"
-RESULT=$(wget -qO- --post-data "ref=master&token=$CI_JOB_TOKEN" "$GITLAB_TRIGGER_URL")
+RESULT=$(wget -S -qO- --post-data "ref=master&token=$CI_JOB_TOKEN" "$GITLAB_TRIGGER_URL" 2>&1)
 
-if [ "$RESULT" = "OK" ]; then
+if echo "$RESULT" | grep -q "200 OK"; then
 	echo "GitLab Trigger sent successfully"
 else
 	echo "ERROR: GitLab Trigger not sent successfully"
