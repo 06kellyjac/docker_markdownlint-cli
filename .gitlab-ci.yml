@@ -57,23 +57,14 @@ lint:markdown:gitlab:
   extends: .markdown
 
 
-poll:npm:
+poll:
   stage: poll
   image: node:alpine
   before_script:
     - node --version
     - npm --version
   script:
-    - .scripts/poll_npm_version.sh
-  only:
-    - schedules
-    - web
-
-poll:docker_hub:
-  stage: poll
-  image: alpine
-  script:
-    - .scripts/poll_node_docker_hub.sh
+    - .scripts/polling.sh
   only:
     - schedules
     - web
