@@ -21,7 +21,7 @@ GitLab Badges
 
 [![Pipeline][pipeline_badge]][pipeline_link] [![Security Scanning][scanning_badge]][security_dashboard_link]
 
-[//]: # (TODO: Swap to official scanning badges in the future: <https://gitlab.com/gitlab-org/gitlab-ee/issues/4713> <https://gitlab.com/gitlab-org/gitlab-ce/issues/49874>)
+[//]: # (TODO: Swap to official scanning badges in the future: <https://gitlab.com/gitlab-org/gitlab-ee/issues/4713> <https://gitlab.com/gitlab-org/gitlab-foss/issues/49874>)
 
 [microbadger_latest_shield]: https://images.microbadger.com/badges/image/06kellyjac/markdownlint-cli.svg
 [microbadger_latest]: https://microbadger.com/images/06kellyjac/markdownlint-cli
@@ -76,12 +76,19 @@ There is also Clair security scanning performed on this container; click the bad
 
 Images are available on both Docker Hub and GitLab: <https://gitlab.com/06kellyjac/docker_markdownlint-cli/container_registry>
 
-Docker Hub takes around **30 minutes plus** to build and push all the containers, GitLab takes around **2 minutes** to build and push all the containers (although it can be longer at "prime time").
-Due to this, Images on GitLab will likely be more up-to-date by 15-30 minutes.
+Docker Hub can easily take over **2 hours+** to queue, build, and push all the containers.
+GitLab takes around **2-6 minutes** to build and push all the containers in parallel (although it can take longer to queue at "prime time").
+Due to this, Images on GitLab will likely be more up-to-date by a substantial margin.
 
 Personally I also experience faster image downloads from GitLab but your networking situation may differ.
 
-At the end of the day there is marginal difference but for using this image in your GitLab CI pipelines on [gitlab.com](https://gitlab.com) it makes sense to use the image from GitLab's own registry.
+There is a marginal difference in download speed but for using this image in your GitLab CI pipelines on [gitlab.com](https://gitlab.com) it makes sense to use the image from GitLab's own registry.
+
+Additionally please note **Docker Hub only allows for 25 automated build tags**.
+
+So only the last 7 versions can remain automatically building (3 tags per version & latest).
+The tags should remain in Docker Hub but they won't be rebuilt with the latest patches.
+All tags will continue to build with the latest patches on GitLab and go in the registry there.
 
 - [`latest-alpine`, `latest`: (*alpine/latest/Dockerfile*)][latest_dockerfile]
 - [`latest-slim`: (*slim/latest/Dockerfile*)][latest_slim_dockerfile]
