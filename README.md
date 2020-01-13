@@ -47,6 +47,8 @@ There is also Clair security scanning performed on this container; click the bad
 # Supported tags and respective `Dockerfile` links
 
 [latest_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/alpine/latest/Dockerfile
+[0.21.0_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/alpine/0.21.0/Dockerfile
+[0.20.0_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/alpine/0.20.0/Dockerfile
 [0.19.0_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/alpine/0.19.0/Dockerfile
 [0.18.0_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/alpine/0.18.0/Dockerfile
 [0.17.0_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/alpine/0.17.0/Dockerfile
@@ -59,6 +61,8 @@ There is also Clair security scanning performed on this container; click the bad
 [0.10.0_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/alpine/0.10.0/Dockerfile
 
 [latest_slim_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/slim/latest/Dockerfile
+[0.21.0_slim_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/slim/0.21.0/Dockerfile
+[0.20.0_slim_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/slim/0.20.0/Dockerfile
 [0.19.0_slim_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/slim/0.19.0/Dockerfile
 [0.18.0_slim_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/slim/0.18.0/Dockerfile
 [0.17.0_slim_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/slim/0.17.0/Dockerfile
@@ -81,6 +85,10 @@ At the end of the day there is marginal difference but for using this image in y
 
 - [`latest-alpine`, `latest`: (*alpine/latest/Dockerfile*)][latest_dockerfile]
 - [`latest-slim`: (*slim/latest/Dockerfile*)][latest_slim_dockerfile]
+- [`0.21.0-alpine`, `0.21.0`: (*alpine/0.21.0/Dockerfile*)][0.21.0_dockerfile]
+- [`0.21.0-slim`: (*slim/0.21.0/Dockerfile*)][0.21.0_slim_dockerfile]
+- [`0.20.0-alpine`, `0.20.0`: (*alpine/0.20.0/Dockerfile*)][0.20.0_dockerfile]
+- [`0.20.0-slim`: (*slim/0.20.0/Dockerfile*)][0.20.0_slim_dockerfile]
 - [`0.19.0-alpine`, `0.19.0`: (*alpine/0.19.0/Dockerfile*)][0.19.0_dockerfile]
 - [`0.19.0-slim`: (*slim/0.19.0/Dockerfile*)][0.19.0_slim_dockerfile]
 - [`0.18.0-alpine`, `0.18.0`: (*alpine/0.18.0/Dockerfile*)][0.18.0_dockerfile]
@@ -174,10 +182,10 @@ GitLab CI Example:
 ```yaml
 my_markdownlint_job:
   image:
-    name: 06kellyjac/markdownlint-cli:0.19.0-alpine
+    name: 06kellyjac/markdownlint-cli:0.21.0-alpine
     # or to use the image from GitLab rather than Docker Hub
     # replace it with the line below
-    # name: registry.gitlab.com/06kellyjac/docker_markdownlint-cli:0.19.0-alpine
+    # name: registry.gitlab.com/06kellyjac/docker_markdownlint-cli:0.21.0-alpine
     entrypoint:
       - "/usr/bin/env"
       - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
