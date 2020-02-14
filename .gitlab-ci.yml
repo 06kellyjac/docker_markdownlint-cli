@@ -81,6 +81,12 @@ contain:docker:latest:
 contain:docker:latest-slim:
   extends: .contain
 
+contain:docker:0.22.0:
+  extends: .contain
+
+contain:docker:0.22.0-slim:
+  extends: .contain
+
 contain:docker:0.21.0:
   extends: .contain
 
