@@ -1,3 +1,5 @@
+[//]: # (This file is templated, please edit it in the templates folder)
+
 [//]: # (<!-- markdownlint-disable MD013 -->)
 [//]: # (Disabled MD013 due to how Docker Hub formats newlines in markdown)
 [//]: # (Also using this funky commenting because Docker Hub shows HTML style markdown comments)
