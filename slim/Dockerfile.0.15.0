@@ -1,0 +1,7 @@
+FROM node:slim
+LABEL maintainer="dev+markdownlint-cli@j-k.io"
+RUN npm install -g markdownlint-cli@0.15.0
+USER node
+WORKDIR /markdown
+ENTRYPOINT [ "markdownlint" ]
+CMD [ "--help" ]
