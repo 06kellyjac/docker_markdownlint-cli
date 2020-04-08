@@ -10,10 +10,10 @@ There is also Clair security scanning performed on this container; click the bad
 # Supported tags and respective `Dockerfile` links
 
 {{ range (ds "config").images -}}
-[{{ . }}_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/alpine/{{ . }}/Dockerfile
+[{{ . }}_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/alpine/{{ . }}/Dockerfile.latest
 {{ end }}
 {{ range (ds "config").images -}}
-[{{ . }}_slim_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/slim/{{ . }}/Dockerfile
+[{{ . }}_slim_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/slim/{{ . }}/Dockerfile.latest
 {{ end }}
 Images are available on both Docker Hub and GitLab: <https://gitlab.com/06kellyjac/docker_markdownlint-cli/container_registry>
 
@@ -35,7 +35,7 @@ All tags will continue to build with the latest patches on GitLab and go in the 
 - [`{{ $image }}-slim`: (*slim/{{ $image }}/Dockerfile*)][{{ $image }}_slim_dockerfile]
 {{- end }}
 
-The `Dockerfile` is also visible on the Docker Hub page: <https://hub.docker.com/r/06kellyjac/markdownlint-cli/~/dockerfile/>
+A `Dockerfile` is also visible on the Docker Hub page: <https://hub.docker.com/r/06kellyjac/markdownlint-cli/~/dockerfile/>
 
 # How to use this image
 
