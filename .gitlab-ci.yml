@@ -75,7 +75,7 @@ lint:docker:
   before_script:
     - hadolint --version
   script:
-    - LIST_OF_DOCKERFILES=$(find -path '.git' -prune -o -print | egrep ".*Dockerfile")
+    - LIST_OF_DOCKERFILES="$(find -type f -name "Dockerfile*" ! -path "./.git/*" ! -path "./templates/*")"
     - hadolint $LIST_OF_DOCKERFILES
 
 
