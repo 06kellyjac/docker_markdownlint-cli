@@ -108,6 +108,8 @@ contain:docker:{{ . }}-slim:
 
 container_scanning:
   stage: scan
+  only:
+    - master
   image: docker:stable
   variables:
     DOCKER_DRIVER: overlay2
