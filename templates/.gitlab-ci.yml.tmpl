@@ -98,91 +98,13 @@ lint:docker:
     - docker --version
   script:
     - .scripts/ci_contain.sh
-
-contain:docker:latest:
+{{ range (ds "config").images }}
+contain:docker:{{ . }}:
   extends: .contain
 
-contain:docker:latest-slim:
+contain:docker:{{ . }}-slim:
   extends: .contain
-
-contain:docker:0.22.0:
-  extends: .contain
-
-contain:docker:0.22.0-slim:
-  extends: .contain
-
-contain:docker:0.21.0:
-  extends: .contain
-
-contain:docker:0.21.0-slim:
-  extends: .contain
-
-contain:docker:0.20.0:
-  extends: .contain
-
-contain:docker:0.20.0-slim:
-  extends: .contain
-
-contain:docker:0.19.0:
-  extends: .contain
-
-contain:docker:0.19.0-slim:
-  extends: .contain
-
-contain:docker:0.18.0:
-  extends: .contain
-
-contain:docker:0.18.0-slim:
-  extends: .contain
-
-contain:docker:0.17.0:
-  extends: .contain
-
-contain:docker:0.17.0-slim:
-  extends: .contain
-
-contain:docker:0.16.0:
-  extends: .contain
-
-contain:docker:0.16.0-slim:
-  extends: .contain
-
-contain:docker:0.15.0:
-  extends: .contain
-
-contain:docker:0.15.0-slim:
-  extends: .contain
-
-contain:docker:0.14.0:
-  extends: .contain
-
-contain:docker:0.14.0-slim:
-  extends: .contain
-
-contain:docker:0.13.0:
-  extends: .contain
-
-contain:docker:0.13.0-slim:
-  extends: .contain
-
-contain:docker:0.12.0:
-  extends: .contain
-
-contain:docker:0.12.0-slim:
-  extends: .contain
-
-contain:docker:0.11.0:
-  extends: .contain
-
-contain:docker:0.11.0-slim:
-  extends: .contain
-
-contain:docker:0.10.0:
-  extends: .contain
-
-contain:docker:0.10.0-slim:
-  extends: .contain
-
+{{ end }}
 
 container_scanning:
   stage: scan

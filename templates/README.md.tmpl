@@ -1,0 +1,153 @@
+{{ template "header" }}
+The CI is scheduled to check every hour to check `npm` for the latest version of `markdownlint-cli` and check Docker Hub for the latest version of the `node` docker image.
+
+The schedule: <https://gitlab.com/06kellyjac/docker_markdownlint-cli/pipeline_schedules>
+
+More information on the polling: <https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/polling/README.md>
+
+There is also Clair security scanning performed on this container; click the badge above or [click here][security_dashboard_link] to view the result.
+
+# Supported tags and respective `Dockerfile` links
+
+{{ range (ds "config").images -}}
+[{{ . }}_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/alpine/Dockerfile.{{ . }}
+{{ end }}
+{{ range (ds "config").images -}}
+[{{ . }}_slim_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/slim/Dockerfile.{{ . }}
+{{ end }}
+Images are available on both Docker Hub and GitLab: <https://gitlab.com/06kellyjac/docker_markdownlint-cli/container_registry>
+
+Docker Hub can easily take over **2 hours+** to queue, build, and push all the containers.
+GitLab takes around **2-6 minutes** to build and push all the containers in parallel (although it can take longer to queue at "prime time").
+Due to this, Images on GitLab will likely be more up-to-date by a substantial margin.
+
+Personally I also experience faster image downloads from GitLab but your networking situation may differ.
+
+There is a marginal difference in download speed but for using this image in your GitLab CI pipelines on [gitlab.com](https://gitlab.com) it makes sense to use the image from GitLab's own registry.
+
+Additionally please note **Docker Hub only allows for 25 automated build tags**.
+
+So only the last 7 versions can remain automatically building (3 tags per version & latest).
+The tags should remain in Docker Hub but they won't be rebuilt with the latest patches.
+All tags will continue to build with the latest patches on GitLab and go in the registry there.
+{{ range $i, $image := (ds "config").images }}
+- [`{{ $image }}-alpine`, `{{ $image }}`: (*alpine/{{ $image }}/Dockerfile*)][{{ $image }}_dockerfile]
+- [`{{ $image }}-slim`: (*slim/{{ $image }}/Dockerfile*)][{{ $image }}_slim_dockerfile]
+{{- end }}
+
+A `Dockerfile` is also visible on the Docker Hub page: <https://hub.docker.com/r/06kellyjac/markdownlint-cli/~/dockerfile/>
+
+# How to use this image
+
+If you're using the image from the GitLab registry replace all instances of `06kellyjac/markdownlint-cli` with `registry.gitlab.com/06kellyjac/docker_markdownlint-cli`.
+
+## General
+
+Linting one file with STDIN:
+
+```shell
+docker run -i 06kellyjac/markdownlint-cli -s < README.md
+```
+
+This is an easy way to lint one file.
+
+---
+
+Linting multiple files with STDIN:
+
+```shell
+cat README.md a.md b.md c.md other.md | docker run -i 06kellyjac/markdownlint-cli -s -
+```
+
+This is a quick and dirty way to lint multiple files. The downside is it's difficult to tell which file has linting issues.
+
+---
+
+Linting one file with STDIN and a custom `markdownlint` config
+
+```shell
+docker run -i -v $PWD/.markdownlint.json:/markdown/.markdownlint.json 06kellyjac/markdownlint-cli -s < README.md
+```
+
+This takes the first example and also mounts your `.markdownlint.json` config into the container. You may find the below example to be cleaner if all the files you want to lint are in your present working directory.
+
+---
+
+Linting files by mounting the whole present working directory into the container.
+
+```shell
+docker run -v $PWD:/markdown 06kellyjac/markdownlint-cli README.md a.md b.md c.md other_dir/other.md
+```
+
+or
+
+```shell
+docker run -v $PWD:/markdown 06kellyjac/markdownlint-cli .
+```
+
+This method is useful for linting files in the present working directory and also means you can mount your `.markdownlint.json` config at the same time.
+
+With a directory structure like so, where `this_directory` is your present working directory:
+
+```none
+this_directory
+├── .markdownlint.json
+├── README.md
+├── a.md
+├── b.md
+├── c.md
+└── other_dir
+    └── other.md
+```
+
+## CI
+
+GitLab CI Example:
+
+```yaml
+my_markdownlint_job:
+  image:
+    name: 06kellyjac/markdownlint-cli:{{ index (ds "config").images 1 }}-alpine
+    # or to use the image from GitLab rather than Docker Hub
+    # replace it with the line below
+    # name: registry.gitlab.com/06kellyjac/docker_markdownlint-cli:{{ index (ds "config").images 1 }}-alpine
+    entrypoint:
+      - "/usr/bin/env"
+      - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+  before_script:
+    - markdownlint --version
+  script:
+    - markdownlint .
+```
+
+# Quick reference
+
+- **Where to get help**:
+  [I have contact details on my GitLab](https://gitlab.com/06kellyjac), [the Docker Community Forums](https://forums.docker.com/), [the Docker Community Slack](https://blog.docker.com/2016/11/introducing-docker-community-directory-docker-community-slack/), or [Stack Overflow](https://stackoverflow.com/search?tab=newest&q=docker)
+
+- **Where to file issues**:
+  <https://gitlab.com/06kellyjac/docker_markdownlint-cli/issues>
+
+- **Maintained by**:
+  [06kellyjac on GitLab](https://gitlab.com/06kellyjac)
+
+- **Source of this description**:
+  [The GitLab README.md](https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/README.md) ([history](https://gitlab.com/06kellyjac/docker_markdownlint-cli/commits/master/README.md))
+
+# What is `markdownlint-cli`
+
+`markdownlint-cli` is a command-line interface for the `markdownlint` library.
+
+Thanks go to [DavidAnson](https://github.com/DavidAnson/) and [contributors](https://github.com/DavidAnson/markdownlint/graphs/contributors) on GitHub for the `markdownlint` library, and to [igorshubovych](https://github.com/igorshubovych/) and [contributors](https://github.com/igorshubovych/markdownlint-cli/graphs/contributors) on GitHub for `markdownlint-cli`.
+
+The source used in this image:
+
+<https://github.com/DavidAnson/markdownlint/>
+
+<https://github.com/igorshubovych/markdownlint-cli/>
+
+# Licence
+
+View [markdownlint licence information](https://github.com/DavidAnson/markdownlint/blob/master/LICENSE) and [markdownlint-cli licence information](https://github.com/igorshubovych/markdownlint-cli/blob/master/LICENSE) for the software contained in this image.
+
+View [licence information](https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/LICENSE) for the container set-up.
