@@ -21,12 +21,12 @@ if echo "$CI_JOB_NAME_END" | grep -q "-"; then
 else
 	TAG=$(generate_image_tag "-${DEFAULT_BASE}")
 	IMAGE_NAME="$IMAGE_NAME $TAG"
-	TARGET="${DEFAULT_BASE} -f ${DEFAULT_BASE}/Dockerfile.${CI_JOB_NAME_END} $TMP_CONTEXT"
+	TARGET="-f ${DEFAULT_BASE}/Dockerfile.${CI_JOB_NAME_END} $TMP_CONTEXT"
 fi
 
 DOCKER_BUILD_LIST=$(for IMAGE in $IMAGE_NAME; do printf -- "-t %s " "$IMAGE"; done)
 # shellcheck disable=SC2086
-docker build $DOCKER_BUILD_LIST "$TARGET"
+docker build $DOCKER_BUILD_LIST $TARGET
 
 for IMAGE in $IMAGE_NAME; do
 	docker push "$IMAGE"
