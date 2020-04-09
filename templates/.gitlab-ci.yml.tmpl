@@ -42,7 +42,7 @@ lint:shell:
 
 lint:yaml:
   stage: lint
-  image: sdesbure/yamllint
+  image: pipelinecomponents/yamllint
   before_script:
     - yamllint --version
   script:
