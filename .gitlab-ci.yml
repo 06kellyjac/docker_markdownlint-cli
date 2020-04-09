@@ -20,9 +20,17 @@ lint:templates:
   image: alpine
   variables:
     faq_version: 0.0.6
+    gomplate_version: 3.6.0
   before_script:
-    - wget "https://github.com/jzelinskie/faq/releases/download/${faq_version}/faq-linux-amd64" -O /bin/faq
-    - chmod +x /bin/faq
+    - >
+      wget
+      "https://github.com/jzelinskie/faq/releases/download/${faq_version}/faq-linux-amd64"
+      -O /bin/faq
+    - >
+      wget
+      "https://github.com/hairyhenderson/gomplate/releases/download/v${gomplate_version}/gomplate_linux-amd64"
+      -O /bin/gomplate
+    - chmod +x /bin/faq /bin/gomplate
   script:
     - echo "Checking for differences in templates"
     - ./scripts/build_templates.sh --diff
