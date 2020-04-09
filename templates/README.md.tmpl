@@ -10,10 +10,10 @@ There is also Clair security scanning performed on this container; click the bad
 # Supported tags and respective `Dockerfile` links
 
 {{ range (ds "config").images -}}
-[{{ . }}_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/alpine/{{ . }}/Dockerfile.latest
+[{{ . }}_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/alpine/Dockerfile.{{ . }}
 {{ end }}
 {{ range (ds "config").images -}}
-[{{ . }}_slim_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/slim/{{ . }}/Dockerfile.latest
+[{{ . }}_slim_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/slim/Dockerfile.{{ . }}
 {{ end }}
 Images are available on both Docker Hub and GitLab: <https://gitlab.com/06kellyjac/docker_markdownlint-cli/container_registry>
 
