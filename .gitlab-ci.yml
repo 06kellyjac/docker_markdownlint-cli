@@ -200,7 +200,9 @@ container_scanning:
       - gl-container-scanning-report.json
   script:
     - docker run -d --name db arminc/clair-db:latest
-    - docker run -p 6060:6060 --link db:postgres -d --name clair --restart on-failure arminc/clair-local-scan:v2.1.0
+    - >
+      docker run -p 6060:6060 --link db:postgres -d --name clair --restart on-failure
+      arminc/clair-local-scan:v2.1.0_8cb406fdb7ae7dc6fed05032b036a365391aaf42
     - apk add -U wget ca-certificates
     - docker pull ${DOCKER_IMAGE}
     - wget -O clair-scanner https://github.com/arminc/clair-scanner/releases/download/v12/clair-scanner_linux_amd64
