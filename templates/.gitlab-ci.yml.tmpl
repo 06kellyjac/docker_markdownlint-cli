@@ -97,7 +97,7 @@ lint:docker:
   before_script:
     - docker --version
   script:
-    - .scripts/ci_contain.sh
+    - ./scripts/ci_contain.sh
 {{ range (ds "config").images }}
 contain:docker:{{ . }}:
   extends: .contain

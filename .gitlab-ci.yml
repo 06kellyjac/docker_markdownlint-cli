@@ -97,7 +97,7 @@ lint:docker:
   before_script:
     - docker --version
   script:
-    - .scripts/ci_contain.sh
+    - ./scripts/ci_contain.sh
 
 contain:docker:latest:
   extends: .contain
