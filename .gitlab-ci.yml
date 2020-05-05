@@ -105,6 +105,12 @@ contain:docker:latest:
 contain:docker:latest-slim:
   extends: .contain
 
+contain:docker:0.23.0:
+  extends: .contain
+
+contain:docker:0.23.0-slim:
+  extends: .contain
+
 contain:docker:0.22.0:
   extends: .contain
 
