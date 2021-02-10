@@ -6,7 +6,7 @@
 
 [docker_stars_shield]: https://img.shields.io/docker/stars/06kellyjac/markdownlint-cli.svg?style=flat-square
 [docker_pulls_shield]: https://img.shields.io/docker/pulls/06kellyjac/markdownlint-cli.svg?style=flat-square
-[docker_build_shield]: https://img.shields.io/docker/build/06kellyjac/markdownlint-cli.svg?style=flat-square
+[docker_build_shield]: https://img.shields.io/docker/cloud/build/06kellyjac/markdownlint-cli.svg?style=flat-square
 [docker_hub]: https://hub.docker.com/r/06kellyjac/markdownlint-cli/
 [docker_hub_build]: https://hub.docker.com/r/06kellyjac/markdownlint-cli/builds/
 
