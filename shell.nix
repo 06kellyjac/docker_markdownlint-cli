@@ -1,4 +1,4 @@
 { pkgs ? import <nixpkgs> {} }:
 pkgs.mkShell {
-  buildInputs = with pkgs; [ gomplate ];
+  buildInputs = with pkgs; [ gomplate yq ];
 }

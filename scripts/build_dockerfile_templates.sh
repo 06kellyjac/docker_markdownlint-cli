@@ -27,7 +27,7 @@ while IFS= read -r TEMPLATE; do
 	EDITION="$(echo "$ORIGINAL" | cut -d\. -f2)"
 	mkdir -p "./${EDITION}"
 
-	for image in $(< "$TEMPLATECFG_FILE" faq -r '.images' | awk '{print substr($0,2)}'); do
+	for image in $(< "$TEMPLATECFG_FILE" yq -r '.images[]'); do
 		COMMAND_START="$(printf 'VERSION="%s" gomplate -f %s%s' "$image" "$TEMPLATE_NAME" "$SEGMENTS")"
 		FILE_LOCATION="${EDITION}/Dockerfile.${image}"
 		if [ "$FLAG" = "-d" ] || [ "$FLAG" = "--diff" ]; then
