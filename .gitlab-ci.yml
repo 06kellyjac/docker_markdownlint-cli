@@ -105,6 +105,12 @@ contain:docker:latest:
 contain:docker:latest-slim:
   extends: .contain
 
+contain:docker:0.27.1:
+  extends: .contain
+
+contain:docker:0.27.1-slim:
+  extends: .contain
+
 contain:docker:0.27.0:
   extends: .contain
 
@@ -127,6 +133,18 @@ contain:docker:0.24.0:
   extends: .contain
 
 contain:docker:0.24.0-slim:
+  extends: .contain
+
+contain:docker:0.23.2:
+  extends: .contain
+
+contain:docker:0.23.2-slim:
+  extends: .contain
+
+contain:docker:0.23.1:
+  extends: .contain
+
+contain:docker:0.23.1-slim:
   extends: .contain
 
 contain:docker:0.23.0:
@@ -181,6 +199,12 @@ contain:docker:0.15.0:
   extends: .contain
 
 contain:docker:0.15.0-slim:
+  extends: .contain
+
+contain:docker:0.14.1:
+  extends: .contain
+
+contain:docker:0.14.1-slim:
   extends: .contain
 
 contain:docker:0.14.0:

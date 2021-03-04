@@ -49,10 +49,13 @@ There is also Clair security scanning performed on this container; click the bad
 # Supported tags and respective `Dockerfile` links
 
 [latest_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/alpine/Dockerfile.latest
+[0.27.1_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/alpine/Dockerfile.0.27.1
 [0.27.0_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/alpine/Dockerfile.0.27.0
 [0.26.0_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/alpine/Dockerfile.0.26.0
 [0.25.0_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/alpine/Dockerfile.0.25.0
 [0.24.0_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/alpine/Dockerfile.0.24.0
+[0.23.2_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/alpine/Dockerfile.0.23.2
+[0.23.1_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/alpine/Dockerfile.0.23.1
 [0.23.0_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/alpine/Dockerfile.0.23.0
 [0.22.0_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/alpine/Dockerfile.0.22.0
 [0.21.0_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/alpine/Dockerfile.0.21.0
@@ -62,6 +65,7 @@ There is also Clair security scanning performed on this container; click the bad
 [0.17.0_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/alpine/Dockerfile.0.17.0
 [0.16.0_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/alpine/Dockerfile.0.16.0
 [0.15.0_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/alpine/Dockerfile.0.15.0
+[0.14.1_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/alpine/Dockerfile.0.14.1
 [0.14.0_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/alpine/Dockerfile.0.14.0
 [0.13.0_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/alpine/Dockerfile.0.13.0
 [0.12.0_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/alpine/Dockerfile.0.12.0
@@ -69,10 +73,13 @@ There is also Clair security scanning performed on this container; click the bad
 [0.10.0_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/alpine/Dockerfile.0.10.0
 
 [latest_slim_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/slim/Dockerfile.latest
+[0.27.1_slim_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/slim/Dockerfile.0.27.1
 [0.27.0_slim_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/slim/Dockerfile.0.27.0
 [0.26.0_slim_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/slim/Dockerfile.0.26.0
 [0.25.0_slim_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/slim/Dockerfile.0.25.0
 [0.24.0_slim_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/slim/Dockerfile.0.24.0
+[0.23.2_slim_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/slim/Dockerfile.0.23.2
+[0.23.1_slim_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/slim/Dockerfile.0.23.1
 [0.23.0_slim_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/slim/Dockerfile.0.23.0
 [0.22.0_slim_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/slim/Dockerfile.0.22.0
 [0.21.0_slim_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/slim/Dockerfile.0.21.0
@@ -82,6 +89,7 @@ There is also Clair security scanning performed on this container; click the bad
 [0.17.0_slim_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/slim/Dockerfile.0.17.0
 [0.16.0_slim_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/slim/Dockerfile.0.16.0
 [0.15.0_slim_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/slim/Dockerfile.0.15.0
+[0.14.1_slim_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/slim/Dockerfile.0.14.1
 [0.14.0_slim_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/slim/Dockerfile.0.14.0
 [0.13.0_slim_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/slim/Dockerfile.0.13.0
 [0.12.0_slim_dockerfile]: https://gitlab.com/06kellyjac/docker_markdownlint-cli/blob/master/slim/Dockerfile.0.12.0
@@ -106,6 +114,8 @@ All tags will continue to build with the latest patches on GitLab and go in the 
 
 - [`latest-alpine`, `latest`: (*alpine/latest/Dockerfile*)][latest_dockerfile]
 - [`latest-slim`: (*slim/latest/Dockerfile*)][latest_slim_dockerfile]
+- [`0.27.1-alpine`, `0.27.1`: (*alpine/0.27.1/Dockerfile*)][0.27.1_dockerfile]
+- [`0.27.1-slim`: (*slim/0.27.1/Dockerfile*)][0.27.1_slim_dockerfile]
 - [`0.27.0-alpine`, `0.27.0`: (*alpine/0.27.0/Dockerfile*)][0.27.0_dockerfile]
 - [`0.27.0-slim`: (*slim/0.27.0/Dockerfile*)][0.27.0_slim_dockerfile]
 - [`0.26.0-alpine`, `0.26.0`: (*alpine/0.26.0/Dockerfile*)][0.26.0_dockerfile]
@@ -114,6 +124,10 @@ All tags will continue to build with the latest patches on GitLab and go in the 
 - [`0.25.0-slim`: (*slim/0.25.0/Dockerfile*)][0.25.0_slim_dockerfile]
 - [`0.24.0-alpine`, `0.24.0`: (*alpine/0.24.0/Dockerfile*)][0.24.0_dockerfile]
 - [`0.24.0-slim`: (*slim/0.24.0/Dockerfile*)][0.24.0_slim_dockerfile]
+- [`0.23.2-alpine`, `0.23.2`: (*alpine/0.23.2/Dockerfile*)][0.23.2_dockerfile]
+- [`0.23.2-slim`: (*slim/0.23.2/Dockerfile*)][0.23.2_slim_dockerfile]
+- [`0.23.1-alpine`, `0.23.1`: (*alpine/0.23.1/Dockerfile*)][0.23.1_dockerfile]
+- [`0.23.1-slim`: (*slim/0.23.1/Dockerfile*)][0.23.1_slim_dockerfile]
 - [`0.23.0-alpine`, `0.23.0`: (*alpine/0.23.0/Dockerfile*)][0.23.0_dockerfile]
 - [`0.23.0-slim`: (*slim/0.23.0/Dockerfile*)][0.23.0_slim_dockerfile]
 - [`0.22.0-alpine`, `0.22.0`: (*alpine/0.22.0/Dockerfile*)][0.22.0_dockerfile]
@@ -132,6 +146,8 @@ All tags will continue to build with the latest patches on GitLab and go in the 
 - [`0.16.0-slim`: (*slim/0.16.0/Dockerfile*)][0.16.0_slim_dockerfile]
 - [`0.15.0-alpine`, `0.15.0`: (*alpine/0.15.0/Dockerfile*)][0.15.0_dockerfile]
 - [`0.15.0-slim`: (*slim/0.15.0/Dockerfile*)][0.15.0_slim_dockerfile]
+- [`0.14.1-alpine`, `0.14.1`: (*alpine/0.14.1/Dockerfile*)][0.14.1_dockerfile]
+- [`0.14.1-slim`: (*slim/0.14.1/Dockerfile*)][0.14.1_slim_dockerfile]
 - [`0.14.0-alpine`, `0.14.0`: (*alpine/0.14.0/Dockerfile*)][0.14.0_dockerfile]
 - [`0.14.0-slim`: (*slim/0.14.0/Dockerfile*)][0.14.0_slim_dockerfile]
 - [`0.13.0-alpine`, `0.13.0`: (*alpine/0.13.0/Dockerfile*)][0.13.0_dockerfile]
@@ -215,10 +231,10 @@ GitLab CI Example:
 ```yaml
 my_markdownlint_job:
   image:
-    name: 06kellyjac/markdownlint-cli:0.27.0-alpine
+    name: 06kellyjac/markdownlint-cli:0.27.1-alpine
     # or to use the image from GitLab rather than Docker Hub
     # replace it with the line below
-    # name: registry.gitlab.com/06kellyjac/docker_markdownlint-cli:0.27.0-alpine
+    # name: registry.gitlab.com/06kellyjac/docker_markdownlint-cli:0.27.1-alpine
     entrypoint:
       - "/usr/bin/env"
       - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
