@@ -62,6 +62,8 @@ lint:yaml:
   image:
     name: registry.gitlab.com/06kellyjac/docker_markdownlint-cli
     entrypoint: *env_entrypoint
+  # Don't prevent fixing own image
+  allow_failure: true
   before_script:
     - markdownlint --version
   script:
